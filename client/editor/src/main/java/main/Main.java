@@ -1,4 +1,7 @@
-package application;
+package main;
+
+import java.io.File;
+import java.net.URL;
 
 import gui.GuiController;
 import javafx.application.Application;
@@ -16,7 +19,8 @@ public class Main extends Application{
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root  = FXMLLoader.load(getClass().getResource("../gui/GUI.fxml"));
+			URL url = new File("src/main/java/gui/GUI.fxml").toURI().toURL();
+			Parent root  = FXMLLoader.load(url);
 			Scene scene = new Scene(root,600,600);
 
 			primaryStage.setScene(scene);
