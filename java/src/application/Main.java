@@ -1,21 +1,26 @@
 package application;
-	
+
+import gui.GuiController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.stage.Stage;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-//import javafx.scene.layout.BorderPane;
+import javafx.stage.Stage;
 
-
-public class Main extends Application {
+public class Main extends Application{
+	
+	public static GuiController guiController = new GuiController();
+	
+	double version = 1.0;
+	
 	@Override
 	public void start(Stage primaryStage) {
 		try {
-			Parent root  = FXMLLoader.load(getClass().getResource("../layout/GUI.fxml"));
+			Parent root  = FXMLLoader.load(getClass().getResource("../gui/GUI.fxml"));
 			Scene scene = new Scene(root,600,600);
 
 			primaryStage.setScene(scene);
+			primaryStage.setTitle("TeoMondoText v" + version);
 			primaryStage.show();
 		} catch(Exception e) {
 			e.printStackTrace();
