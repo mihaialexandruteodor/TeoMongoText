@@ -30,6 +30,15 @@
 		    <artifactId>javafx-fxml</artifactId>
 		    <version>16-ea+1</version>
 		</dependency>
+		
+		<!-- https://mvnrepository.com/artifact/org.ini4j/ini4j -->
+		<dependency>
+		    <groupId>org.ini4j</groupId>
+		    <artifactId>ini4j</artifactId>
+		    <version>0.5.4</version>
+		</dependency>
+		
+		
     </dependencies>
 
     <build>
