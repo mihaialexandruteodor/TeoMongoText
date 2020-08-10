@@ -18,43 +18,43 @@
 
 <VBox id="GUI" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GuiController">
   <children>
-    <MenuBar VBox.vgrow="NEVER">
+    <MenuBar fx:id="menu_bar" VBox.vgrow="NEVER">
       <menus>
-        <Menu mnemonicParsing="false" text="File">
+        <Menu fx:id="menu_file" mnemonicParsing="false" text="File">
           <items>
-            <MenuItem mnemonicParsing="false" text="New" />
-            <MenuItem mnemonicParsing="false" text="Open…" />
-            <Menu mnemonicParsing="false" text="Open Recent" />
+            <MenuItem fx:id="menu_new" mnemonicParsing="false" onAction="#fileNew" text="New" />
+            <MenuItem fx:id="menu_open" mnemonicParsing="false" onAction="#fileOpen" text="Open…" />
+            <Menu fx:id="menu_open_recent" mnemonicParsing="false" text="Open Recent" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Close" />
-            <MenuItem mnemonicParsing="false" text="Save" />
-            <MenuItem mnemonicParsing="false" text="Save As…" />
-            <MenuItem mnemonicParsing="false" text="Revert" />
+            <MenuItem fx:id="menu_close" mnemonicParsing="false" onAction="#fileClose" text="Close" />
+            <MenuItem fx:id="menu_save" mnemonicParsing="false" onAction="#fileSave" text="Save" />
+            <MenuItem fx:id="menu_save_as" mnemonicParsing="false" onAction="#fileSaveAs" text="Save As…" />
+            <MenuItem fx:id="menu_revert" mnemonicParsing="false" onAction="#fileRevert" text="Revert" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Preferences…" />
+            <MenuItem fx:id="menu_preferences" mnemonicParsing="false" onAction="#filePreferences" text="Preferences…" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Quit" />
+            <MenuItem fx:id="menu_quit" mnemonicParsing="false" onAction="#quitTeoMongo" text="Quit" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Edit">
+        <Menu fx:id="menu_edit" mnemonicParsing="false" text="Edit">
           <items>
-            <MenuItem mnemonicParsing="false" text="Undo" />
-            <MenuItem mnemonicParsing="false" text="Redo" />
+            <MenuItem fx:id="menu_undo" mnemonicParsing="false" onAction="#editUndo" text="Undo" />
+            <MenuItem fx:id="menu_redo" mnemonicParsing="false" onAction="#editRedo" text="Redo" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Cut" />
-            <MenuItem mnemonicParsing="false" text="Copy" />
-            <MenuItem mnemonicParsing="false" text="Paste" />
-            <MenuItem mnemonicParsing="false" text="Delete" />
+            <MenuItem fx:id="menu_cut" mnemonicParsing="false" onAction="#editCut" text="Cut" />
+            <MenuItem fx:id="menu_copy" mnemonicParsing="false" onAction="#editCopy" text="Copy" />
+            <MenuItem fx:id="menu_paste" mnemonicParsing="false" onAction="#editPaste" text="Paste" />
+            <MenuItem fx:id="menu_delete" mnemonicParsing="false" onAction="#editDelete" text="Delete" />
             <SeparatorMenuItem mnemonicParsing="false" />
-            <MenuItem mnemonicParsing="false" text="Select All" />
-            <MenuItem mnemonicParsing="false" text="Unselect All" />
+            <MenuItem fx:id="menu_select_all" mnemonicParsing="false" onAction="#editSelectAll" text="Select All" />
+            <MenuItem fx:id="menu_unselect_all" mnemonicParsing="false" onAction="#editUnselectAll" text="Unselect All" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" text="Set MongoDb Connection String" />
+                  <MenuItem fx:id="menu_mongodb" mnemonicParsing="false" onAction="#setConnectionString" text="Set MongoDb Connection String" />
           </items>
         </Menu>
-        <Menu mnemonicParsing="false" text="Help">
+        <Menu fx:id="menu_help" mnemonicParsing="false" text="Help">
           <items>
-            <MenuItem mnemonicParsing="false" text="About TeoMongoText" />
+            <MenuItem fx:id="menu_about" mnemonicParsing="false" onAction="#helpAbout" text="About TeoMongoText" />
           </items>
         </Menu>
       </menus>
@@ -63,7 +63,7 @@
       <items>
         <AnchorPane>
           <children>
-            <Label alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Files" textAlignment="CENTER" wrapText="false">
+            <Label fx:id="files_label" alignment="CENTER" layoutX="14.0" layoutY="14.0" minWidth="60.0" prefWidth="-1.0" style="&#10;" text="Files" textAlignment="CENTER" wrapText="false">
               <font>
                 <Font size="18.0" fx:id="x1" />
               </font>
@@ -78,14 +78,14 @@
           <content>
             <AnchorPane id="Content" minHeight="-1.0" minWidth="-1.0" prefHeight="545.0" prefWidth="430.0">
               <children>
-                <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Text" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                <Label fx:id="text_label" alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Text" textAlignment="CENTER" textFill="$x2" wrapText="false" />
               </children>
             </AnchorPane>
           </content>
         </ScrollPane>
         <AnchorPane>
           <children>
-            <Label alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Characters" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+            <Label fx:id="characters_label" alignment="CENTER" font="$x1" layoutX="14.0" layoutY="14.0" style="&#10;" text="Characters" textAlignment="CENTER" textFill="$x2" wrapText="false" />
                   <Accordion id="charactersList" fx:id="char_list_id" layoutX="9.0" layoutY="72.0" prefHeight="447.0" prefWidth="202.0" AnchorPane.bottomAnchor="20.0" AnchorPane.leftAnchor="20.0" AnchorPane.rightAnchor="20.0" AnchorPane.topAnchor="50.0" />
           </children>
         </AnchorPane>

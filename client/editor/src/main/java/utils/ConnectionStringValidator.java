@@ -1,12 +1,7 @@
 package utils;
 
-import javax.swing.JWindow;
 
-public class ConnectionStringValidator extends JWindow {
+public class ConnectionStringValidator {
 
-	/**
-	 * 
-	 */
-	private static final long serialVersionUID = 1L;
 
 }
