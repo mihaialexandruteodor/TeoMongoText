@@ -3,6 +3,7 @@ package gui;
 import java.io.File;
 import java.io.IOException;
 
+
 import org.ini4j.Wini;
 
 import javafx.fxml.FXML;
@@ -10,6 +11,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.web.HTMLEditor;
 
 public class GuiController{
 	
@@ -81,6 +83,9 @@ public class GuiController{
 	@FXML
 	MenuItem menu_about;
 	
+	@FXML
+	HTMLEditor textBox;
+	
 	/**
 	 *  Methods
 	 */
@@ -92,7 +97,8 @@ public class GuiController{
     @FXML
     private void initialize() 
     {
-    	//text_label.setVisible(false);
+    	//textBox.setVisible(false);
+    	textBox.autosize();
     }
     
     @FXML
