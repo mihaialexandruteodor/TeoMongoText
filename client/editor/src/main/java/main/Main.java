@@ -11,6 +11,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import utils.DataSingleton;
 import utils.IniLoader;
+import utils.MongoDbConnector;
 
 public class Main extends Application{
 	
@@ -41,5 +42,9 @@ public class Main extends Application{
 		DataSingleton.getInstance();
 		
 		IniLoader iniLoader = new IniLoader();
+		iniLoader.loadIniSettings();
+		
+		MongoDbConnector mongoDbConnector = new MongoDbConnector();
+		mongoDbConnector.connectToDatabase();
 	}
 }

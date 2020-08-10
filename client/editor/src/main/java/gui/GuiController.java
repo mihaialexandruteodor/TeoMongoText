@@ -1,5 +1,10 @@
 package gui;
 
+import java.io.File;
+import java.io.IOException;
+
+import org.ini4j.Wini;
+
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
 import javafx.scene.control.Menu;
@@ -193,7 +198,15 @@ public class GuiController{
     @FXML
     private void setConnectionString()
     {
-    	
+//    	Wini ini = null;
+//		try {
+//			ini = new Wini(new File("Settings.ini"));
+//		} catch (IOException e) {
+//			// TODO Auto-generated catch block
+//			e.printStackTrace();
+//		}
+//        
+//        ini.put("database", "connstr", "value");
     }
     
     /*

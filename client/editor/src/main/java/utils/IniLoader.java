@@ -3,8 +3,7 @@ package utils;
 import java.io.File;
 import java.io.IOException;
 
-import org.ini4j.Ini;
-import org.ini4j.IniPreferences;
+import org.ini4j.Wini;
 
 public class IniLoader {
 	
@@ -25,16 +24,17 @@ public class IniLoader {
 		}
 	}
 	
-	void loadIniSettings()
+	public void loadIniSettings()
 	{
-		Ini ini = null;
+		Wini ini = null;
 		try {
-			ini = new Ini(new File("Settings.ini"));
+			ini = new Wini(new File("Settings.ini"));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
-		java.util.prefs.Preferences prefs = new IniPreferences(ini);
+
+		DataSingleton.connectionString = ini.get("database", "connstr");
 	}
 
 }

@@ -4,7 +4,7 @@ public class DataSingleton {
 	
 	private static DataSingleton single_instance = null; 
 	  
-    public String connectionString; 
+    public static String connectionString; 
   
 
     private DataSingleton() 
