@@ -13,37 +13,37 @@ import utils.DataSingleton;
 import utils.IniLoader;
 import utils.MongoDbConnector;
 
-public class Main extends Application{
-	
+public class Main extends Application {
+
 	public static GuiController guiController = new GuiController();
-	
+
 	double version = 1.0;
-	
+
 	@Override
 	public void start(Stage primaryStage) {
 		try {
 			URL url = new File("src/main/java/gui/GUI.fxml").toURI().toURL();
-			Parent root  = FXMLLoader.load(url);
-			Scene scene = new Scene(root,1200,600);
+			Parent root = FXMLLoader.load(url);
+			Scene scene = new Scene(root, 1200, 600);
 
 			primaryStage.setScene(scene);
 			primaryStage.setTitle("TeoMongoText v" + version);
 			primaryStage.setMinWidth(1200);
 			primaryStage.setMinHeight(600);
 			primaryStage.show();
-		} catch(Exception e) {
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	public static void main(String[] args) {
 		launch(args);
-		
+
 		DataSingleton.getInstance();
-		
+
 		IniLoader iniLoader = new IniLoader();
 		iniLoader.loadIniSettings();
-		
+
 		MongoDbConnector mongoDbConnector = new MongoDbConnector();
 		mongoDbConnector.connectToDatabase();
 	}

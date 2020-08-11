@@ -1,24 +1,20 @@
 package utils;
 
 public class DataSingleton {
-	
-	private static DataSingleton single_instance = null; 
-	  
-    public static String connectionString; 
-  
 
-    private DataSingleton() 
-    { 
-       
-    } 
-  
+	private static DataSingleton single_instance = null;
 
-    public static DataSingleton getInstance() 
-    { 
-        if (single_instance == null) 
-            single_instance = new DataSingleton(); 
-  
-        return single_instance; 
-    } 
+	public static String connectionString;
+
+	private DataSingleton() {
+
+	}
+
+	public static DataSingleton getInstance() {
+		if (single_instance == null)
+			single_instance = new DataSingleton();
+
+		return single_instance;
+	}
 
 }
