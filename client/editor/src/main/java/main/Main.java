@@ -44,7 +44,6 @@ public class Main extends Application {
 		IniLoader iniLoader = new IniLoader();
 		iniLoader.loadIniSettings();
 
-		MongoDbConnector mongoDbConnector = new MongoDbConnector();
-		mongoDbConnector.connectToDatabase();
+		DataSingleton.getInstance().getMongoDbConnector().connectToDatabase();
 	}
 }

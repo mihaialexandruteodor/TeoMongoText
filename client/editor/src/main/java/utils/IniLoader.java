@@ -32,7 +32,7 @@ public class IniLoader {
 			e.printStackTrace();
 		}
 
-		DataSingleton.connectionString = ini.get("database", "connstr");
+		DataSingleton.getInstance().setConnectionString(ini.get("database", "connstr"));
 	}
 
 }

@@ -47,7 +47,7 @@ public class ConnectionStringInputWindow {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				DataSingleton.connectionString = textfield.getText();
+				DataSingleton.getInstance().setConnectionString(textfield.getText());
 
 				Wini ini = null;
 				try {
@@ -57,7 +57,7 @@ public class ConnectionStringInputWindow {
 					e.printStackTrace();
 				}
 
-				ini.put("database", "connstr", DataSingleton.connectionString);
+				ini.put("database", "connstr", DataSingleton.getInstance().getConnectionString());
 				try {
 					ini.store();
 				} catch (IOException e) {
@@ -66,6 +66,8 @@ public class ConnectionStringInputWindow {
 				}
 
 				label1.setText("String has been submitted and saved inside the Settings.ini file");
+				
+				DataSingleton.getInstance().getMongoDbConnector().connectToDatabase();
 			}
 		});
 
