@@ -1,4 +1,4 @@
-❗  Currentyl in development ❗ 
+❗  Currently in development ❗ 
 
 Getting started:
 
