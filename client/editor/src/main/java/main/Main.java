@@ -39,11 +39,24 @@ public class Main extends Application {
 	public static void main(String[] args) {
 		launch(args);
 
-		DataSingleton.getInstance();
+		DataSingleton x = DataSingleton.getInstance();
 
 		IniLoader iniLoader = new IniLoader();
 		iniLoader.loadIniSettings();
 
-		DataSingleton.getInstance().getMongoDbConnector().connectToDatabase();
+		/**
+		 *  ASYNC connect to database
+		 */
+		Thread t = new Thread(DataSingleton.getInstance().getMongoDbConnector());
+		t.start();
+		try {
+			t.join();
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		DataSingleton.getInstance().getCrudObj().readDB();
+		
 	}
 }

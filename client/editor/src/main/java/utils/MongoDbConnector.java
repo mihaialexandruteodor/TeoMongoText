@@ -11,9 +11,12 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.MongoException;
 
-public class MongoDbConnector {
+public class MongoDbConnector implements Runnable{
 
 	public boolean connectToDatabase() {
+		
+		boolean success = true;
+		
 		MongoClientURI uri = null;
 
 		try {
@@ -23,6 +26,7 @@ public class MongoDbConnector {
 		{
 			displayErrorWindow();
 			exc.printStackTrace();
+			success = false;
 			
 		}
 
@@ -33,6 +37,7 @@ public class MongoDbConnector {
 		{
 			displayErrorWindow();
 			e.printStackTrace();
+			success = false;
 			
 		}
 		
@@ -43,9 +48,11 @@ public class MongoDbConnector {
 		{
 			displayErrorWindow();
 			ex.printStackTrace();
+			success = false;
 		}
 
-		return true;
+
+		return success;
 	}
 	
 	void displayErrorWindow()
@@ -73,6 +80,12 @@ public class MongoDbConnector {
 				frame.dispose();
 			}
 		});
+	}
+
+	@Override
+	public void run() {
+		connectToDatabase();
+		
 	}
 
 }

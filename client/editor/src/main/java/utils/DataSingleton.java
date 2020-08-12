@@ -3,20 +3,25 @@ package utils;
 import com.mongodb.MongoClient;
 import com.mongodb.client.MongoDatabase;
 
+import model.CRUD;
+
 public class DataSingleton {
 
 	private static DataSingleton single_instance = null;
 
-	public MongoDbConnector mongoDbConnector;
-	public String connectionString;
-	public MongoClient mongoClient;
-	public MongoDatabase database;
+	 MongoDbConnector mongoDbConnector;
+	 String connectionString;
+	 MongoClient mongoClient;
+	 MongoDatabase database;
+	 CRUD crudObj;
+
 
 	private DataSingleton() {
 		mongoDbConnector = new MongoDbConnector();
 		connectionString = null;
 		mongoClient = null;
 		database = null;
+		crudObj = new CRUD();
 	}
 
 	
@@ -46,6 +51,15 @@ public class DataSingleton {
 	
 	public void setDatabase(MongoDatabase database) {
 		this.database = database;
+	}
+	
+	public CRUD getCrudObj() {
+		return crudObj;
+	}
+
+
+	public void setCrudObj(CRUD crudObj) {
+		this.crudObj = crudObj;
 	}
 
 	public static DataSingleton getInstance() {
