@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
@@ -17,7 +17,7 @@
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.web.HTMLEditor?>
 
-<VBox id="GUI" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GuiController">
+<VBox id="GUI" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GuiController">
   <children>
     <MenuBar fx:id="menu_bar" VBox.vgrow="NEVER">
       <menus>
@@ -74,7 +74,7 @@
                       <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
                     </textFill>
                   </Label>
-                        <Accordion id="filesList" fx:id="file_list_id" />
+                        <ListView fx:id="file_list_id" prefHeight="200.0" prefWidth="200.0" />
                      </children>
                   </StackPane>
           </children>
@@ -90,7 +90,7 @@
                   <StackPane maxWidth="-Infinity" prefHeight="150.0" prefWidth="230.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
                   <Label fx:id="characters_label" alignment="CENTER" font="$x1" style="&#10;" text="Characters" textAlignment="CENTER" textFill="$x2" wrapText="false" />
-                        <Accordion id="charactersList" fx:id="char_list_id" />
+                        <ListView fx:id="char_list_id" prefHeight="200.0" prefWidth="200.0" />
                      </children>
                   </StackPane>
           </children>

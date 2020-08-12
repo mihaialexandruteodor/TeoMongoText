@@ -1,7 +1,10 @@
 package gui;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
@@ -21,6 +24,16 @@ public class GuiController {
 
 	@FXML
 	Label characters_label;
+	
+	/**
+	 *  Lists
+	 */
+	
+	@FXML
+	ListView<String> file_list_id;
+	
+	@FXML
+	ListView <String>char_list_id;
 
 	/**
 	 * Menu Bar
@@ -91,6 +104,9 @@ public class GuiController {
 	private void initialize() {
 		// textBox.setVisible(false);
 		textBox.autosize();
+		
+		populateFileList();
+		populateCharactersList();
 	}
 
 	@FXML
@@ -191,6 +207,21 @@ public class GuiController {
 	@FXML
 	private void helpAbout() {
 
+	}
+	
+	
+	void populateFileList()
+	{
+		ObservableList<String> items =FXCollections.observableArrayList (
+			    "test", "test2", "test3", "test4");
+		file_list_id.setItems(items);
+	}
+	
+	void populateCharactersList()
+	{
+		ObservableList<String> items =FXCollections.observableArrayList (
+			    "test", "test2", "test3", "test4");
+		char_list_id.setItems(items);
 	}
 
 }
