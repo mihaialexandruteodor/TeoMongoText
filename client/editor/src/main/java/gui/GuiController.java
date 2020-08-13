@@ -1,7 +1,7 @@
 package gui;
 
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
+import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
@@ -11,8 +11,12 @@ import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TitledPane;
 import javafx.scene.web.HTMLEditor;
+import utils.DataSingleton;
 
 public class GuiController {
+
+	private ObservableSet<String> observableSetTextFiles;
+	private ObservableSet<TitledPane> observableSetCharFiles;
 
 	/**
 	 * Labels
@@ -26,14 +30,14 @@ public class GuiController {
 
 	@FXML
 	Label characters_label;
-	
+
 	/**
-	 *  Lists
+	 * Lists
 	 */
-	
+
 	@FXML
 	ListView<String> file_list_id;
-	
+
 	@FXML
 	Accordion char_list_id;
 
@@ -102,13 +106,11 @@ public class GuiController {
 	public GuiController() {
 	}
 
-	@FXML
-	private void initialize() {
-		// textBox.setVisible(false);
-		textBox.autosize();
-		
+	public void loadDataIntoLists() {
+
 		populateFileList();
 		populateCharactersList();
+
 	}
 
 	@FXML
@@ -210,27 +212,37 @@ public class GuiController {
 	private void helpAbout() {
 
 	}
-	
-	
-	void populateFileList()
-	{
-		ObservableList<String> items =FXCollections.observableArrayList (
-			    "test", "test2", "test3", "test4");
-		file_list_id.setItems(items);
+
+	void populateFileList() {
+
+		if (DataSingleton.getInstance().getTextFiles() != null) {
+			DataSingleton.getInstance().getTextFiles().forEach((c) -> observableSetTextFiles.add(c.getFileName()));
+			file_list_id.getItems().removeAll();
+			file_list_id.getItems().addAll(observableSetTextFiles);
+			file_list_id.refresh();
+		}
+
 	}
-	
-	void populateCharactersList()
-	{
-		
-		TitledPane pane1 = new TitledPane("Boats" , new Label("Show all boats available"));
-        TitledPane pane2 = new TitledPane("Cars"  , new Label("Show all cars available"));
-        TitledPane pane3 = new TitledPane("Planes", new Label("Show all planes available"));
 
+	void populateCharactersList() {
+		if (DataSingleton.getInstance().getCharFiles() != null) {
+			DataSingleton.getInstance().getCharFiles()
+					.forEach((c) -> observableSetCharFiles.add(new TitledPane(c.getName(), new Label(c.getDetails()))));
 
-        char_list_id.getPanes().add(pane1);
-        char_list_id.getPanes().add(pane2);
-        char_list_id.getPanes().add(pane3);
-		
+			char_list_id.getPanes().removeAll();
+			char_list_id.getPanes().addAll(observableSetCharFiles);
+		}
+
+	}
+
+	public void initialize() {
+		observableSetTextFiles = FXCollections.observableSet();
+		observableSetCharFiles = FXCollections.observableSet();
+
+		// loadDataIntoLists();
+		// textBox.setVisible(false);
+		textBox.autosize();
+
 	}
 
 }

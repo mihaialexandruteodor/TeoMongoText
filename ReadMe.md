@@ -2,7 +2,7 @@
 
 Getting started:
 
-✅ Set up a MongoDB Atlas free cluster and a simple database within (I used the AWS server closest to me). Create a user and a connection string for said database
+✅ Set up a MongoDB Atlas free cluster and a simple database named teomongotext, with two collections inside (files and characters). I used the AWS server closest to me to host the database. Create a user and a connection string for said database
 
 ✅ Install a Java Development Kit (11 or above recommended) or a Java Runtime Enviorment (8 or above recommended)
 

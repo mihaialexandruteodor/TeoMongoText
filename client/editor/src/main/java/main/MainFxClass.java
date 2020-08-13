@@ -3,8 +3,8 @@ package main;
 import gui.GuiController;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import utils.DataSingleton;
 import utils.IniLoader;
@@ -18,15 +18,15 @@ import utils.IniLoader;
  */
 
 public class MainFxClass extends Application{
-	
-	public static GuiController guiController = new GuiController();
 
 	double version = 1.0;
+	static FXMLLoader fxmlLoader;
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
-			Parent root = FXMLLoader.load(getClass().getResource("/gui/GUI.fxml"));
+			fxmlLoader = new FXMLLoader(getClass().getResource("/gui/GUI.fxml")); 
+			Pane root = fxmlLoader.load();
 			Scene scene = new Scene(root, 1200, 600);
 
 			primaryStage.setScene(scene);
@@ -34,6 +34,33 @@ public class MainFxClass extends Application{
 			primaryStage.setMinWidth(1200);
 			primaryStage.setMinHeight(600);
 			primaryStage.show();
+			
+			IniLoader iniLoader = new IniLoader();
+			iniLoader.loadIniSettings();
+			
+			DataSingleton.getInstance().setGuiController(fxmlLoader.getController());
+
+			
+			Thread t = new Thread(DataSingleton.getInstance().getMongoDbConnector());
+			t.start();
+			try {
+				t.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			Thread t2 = new Thread(DataSingleton.getInstance().getCrudObj());
+			t2.start();
+			try {
+				t2.join();
+			} catch (InterruptedException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			DataSingleton.getInstance().getGuiController().loadDataIntoLists();
+			
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -42,23 +69,8 @@ public class MainFxClass extends Application{
 
     public static void main(String[] args) {
         launch(args);
-
-		IniLoader iniLoader = new IniLoader();
-		iniLoader.loadIniSettings();
-
-		/**
-		 *  ASYNC connect to database
-		 */
-		Thread t = new Thread(DataSingleton.getInstance().getMongoDbConnector());
-		t.start();
-		try {
-			t.join();
-		} catch (InterruptedException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
 		
-		DataSingleton.getInstance().getCrudObj().readDB();
+		
     }
 
 	
