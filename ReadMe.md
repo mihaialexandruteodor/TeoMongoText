@@ -6,7 +6,7 @@ Getting started:
 
 ✅ Install a Java Development Kit (11 or above recommended) or a Java Runtime Enviorment (8 or above recommended)
 
-✅ Compile the app yourself or simply run the jar file. Don't worry about the Settings.ini file, it will be created automatically at the root of the folder that contains the jar or project.
+✅ Compile the app yourself or simply run the jar file. Don't worry about the Settings.ini file, it will be created automatically inside your Documents folder, regardless of the OS you run on.
 
 ✅ Navigate to the edit menu and use the option to add your connection string
 
