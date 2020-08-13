@@ -1,5 +1,6 @@
 package utils;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -12,7 +13,7 @@ import model.CharacterFile;
 import model.TextFile;
 
 public class DataSingleton {
-
+	
 	private static DataSingleton single_instance = null;
 
 	MongoDbConnector mongoDbConnector;
@@ -23,6 +24,7 @@ public class DataSingleton {
 	CRUD crudObj;
 	List<TextFile> textFiles;
 	List<CharacterFile> charFiles;
+	String iniFilePath;
 
 	private DataSingleton() {
 		mongoDbConnector = new MongoDbConnector();
@@ -32,7 +34,10 @@ public class DataSingleton {
 		database = null;
 		crudObj = new CRUD();
 		textFiles = new ArrayList<>();
+		setIniFilePath();
 	}
+
+	
 
 	public static DataSingleton getInstance() {
 		if (single_instance == null)
@@ -40,7 +45,7 @@ public class DataSingleton {
 
 		return single_instance;
 	}
-	
+
 	public GuiController getGuiController() {
 
 		return guiController;
@@ -93,13 +98,66 @@ public class DataSingleton {
 	public void setTextFiles(List<TextFile> textFiles) {
 		this.textFiles = textFiles;
 	}
-	
+
 	public List<CharacterFile> getCharFiles() {
 		return charFiles;
 	}
 
 	public void setCharFiles(List<CharacterFile> charFiles) {
 		this.charFiles = charFiles;
+	}
+	
+	
+	public String getIniFilePath() {
+		return iniFilePath;
+	}
+
+	public void setIniFilePath() {
+		
+		String osName = System.getProperty("os.name").toLowerCase();
+		boolean isMac = osName.startsWith("mac");
+		boolean isLinux = osName.startsWith("linux");
+		boolean isWindows = osName.startsWith("windows");
+		if (isMac) 
+		{
+			iniFilePath = System.getProperty("file.separator") + "Users" + System.getProperty("file.separator")
+			+ System.getProperty("user.name") + System.getProperty("file.separator") + "Documents"
+			+ System.getProperty("file.separator") + "TeoMongoText" + System.getProperty("file.separator")
+			+ "Settings.ini";
+		}
+		else
+			if(isLinux)
+			{
+				iniFilePath = System.getProperty("file.separator") + "home" + System.getProperty("file.separator")
+				+ System.getProperty("user.name") + System.getProperty("file.separator") + "Documents"
+				+ System.getProperty("file.separator") + "TeoMongoText" + System.getProperty("file.separator")
+				+ "Settings.ini";
+			}
+			else
+				if(isWindows)
+				{
+					String myDocuments = null;
+
+					try {
+					    Process p =  Runtime.getRuntime().exec("reg query \"HKCU\\Software\\Microsoft\\Windows\\CurrentVersion\\Explorer\\Shell Folders\" /v personal");
+					    p.waitFor();
+
+					    InputStream in = p.getInputStream();
+					    byte[] b = new byte[in.available()];
+					    in.read(b);
+					    in.close();
+
+					    myDocuments = new String(b);
+					    myDocuments = myDocuments.split("\\s\\s+")[4];
+
+					} catch(Throwable t) {
+					    t.printStackTrace();
+					}
+					
+					iniFilePath = myDocuments + System.getProperty("file.separator") + "TeoMongoText" + System.getProperty("file.separator")
+					+ "Settings.ini";
+				}
+		
 	}
 
 }

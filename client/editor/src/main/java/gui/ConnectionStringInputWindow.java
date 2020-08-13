@@ -51,7 +51,7 @@ public class ConnectionStringInputWindow {
 
 				Wini ini = null;
 				try {
-					ini = new Wini(new File("Settings.ini"));
+					ini = new Wini(new File(DataSingleton.getInstance().getIniFilePath()));
 				} catch (IOException e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();

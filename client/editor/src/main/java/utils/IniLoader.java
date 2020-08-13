@@ -11,7 +11,7 @@ public class IniLoader {
 	 * I handle the initial creation of the .ini file inside the constructor
 	 */
 	public IniLoader() {
-		File f = new File("Settings.ini");
+		File f = new File(DataSingleton.getInstance().getIniFilePath());
 		if (f.getParentFile() != null) {
 			f.getParentFile().mkdirs();
 		}
@@ -26,7 +26,7 @@ public class IniLoader {
 	public void loadIniSettings() {
 		Wini ini = null;
 		try {
-			ini = new Wini(new File("Settings.ini"));
+			ini = new Wini(new File(DataSingleton.getInstance().getIniFilePath()));
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
