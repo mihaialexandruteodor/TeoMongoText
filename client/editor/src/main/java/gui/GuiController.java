@@ -3,11 +3,13 @@ package gui;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.TitledPane;
 import javafx.scene.web.HTMLEditor;
 
 public class GuiController {
@@ -33,7 +35,7 @@ public class GuiController {
 	ListView<String> file_list_id;
 	
 	@FXML
-	ListView <String>char_list_id;
+	Accordion char_list_id;
 
 	/**
 	 * Menu Bar
@@ -219,9 +221,16 @@ public class GuiController {
 	
 	void populateCharactersList()
 	{
-		ObservableList<String> items =FXCollections.observableArrayList (
-			    "test", "test2", "test3", "test4");
-		char_list_id.setItems(items);
+		
+		TitledPane pane1 = new TitledPane("Boats" , new Label("Show all boats available"));
+        TitledPane pane2 = new TitledPane("Cars"  , new Label("Show all cars available"));
+        TitledPane pane3 = new TitledPane("Planes", new Label("Show all planes available"));
+
+
+        char_list_id.getPanes().add(pane1);
+        char_list_id.getPanes().add(pane2);
+        char_list_id.getPanes().add(pane3);
+		
 	}
 
 }
