@@ -10,9 +10,8 @@
     <name>editor</name>
 
     <properties>
-        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-        <maven.compiler.source>11</maven.compiler.source>
-        <maven.compiler.target>11</maven.compiler.target>
+        <maven.compiler.source>14</maven.compiler.source>
+        <maven.compiler.target>14</maven.compiler.target>
         <javafx.version>11</javafx.version>
         <mainClassName>src.main.Main</mainClassName>
     </properties>
@@ -60,17 +59,18 @@
 		    <version>0.5.4</version>
 		</dependency>
 		
-		<!-- https://mvnrepository.com/artifact/org.mongodb/mongo-java-driver -->
 		<dependency>
-		    <groupId>org.mongodb</groupId>
-		    <artifactId>mongo-java-driver</artifactId>
-		    <version>3.12.7</version>
-		</dependency>
+	        <groupId>org.mongodb</groupId>
+	        <artifactId>mongodb-driver-sync</artifactId>
+	        <version>3.8.1</version>
+	    </dependency>
 		
 		
     </dependencies>
 
     <build>
+        <sourceDirectory>src</sourceDirectory>
+
         <plugins>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>

@@ -7,9 +7,10 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import com.mongodb.MongoClient;
-import com.mongodb.MongoClientURI;
+import com.mongodb.ConnectionString;
 import com.mongodb.MongoException;
+import com.mongodb.client.MongoClients;
+import com.mongodb.client.MongoClient;
 
 public class MongoDbConnector implements Runnable{
 
@@ -17,10 +18,10 @@ public class MongoDbConnector implements Runnable{
 		
 		boolean success = true;
 		
-		MongoClientURI uri = null;
+		MongoClient mongoClient = null;
 
 		try {
-			 uri = new MongoClientURI(DataSingleton.getInstance().getConnectionString());
+			 mongoClient = MongoClients.create(DataSingleton.getInstance().getConnectionString());
 		}
 		catch(IllegalArgumentException exc)
 		{
@@ -31,7 +32,7 @@ public class MongoDbConnector implements Runnable{
 		}
 
 		try {
-			DataSingleton.getInstance().setMongoClient(new MongoClient(uri));	
+			DataSingleton.getInstance().setMongoClient(mongoClient);	
 		}
 		catch(MongoException e)
 		{
