@@ -14,7 +14,8 @@ module editor {
 	requires transitive org.mongodb.driver.core;
 	requires transitive org.mongodb.driver.sync.client;
 	requires transitive org.mongodb.bson;
-	requires transitive org.json;
+	requires com.google.gson;
+
 	
 	opens gui to javafx.fxml;
 }

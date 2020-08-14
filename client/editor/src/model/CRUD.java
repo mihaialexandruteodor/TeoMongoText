@@ -4,13 +4,15 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.bson.Document;
-import org.json.JSONObject;
 
+import com.google.gson.JsonElement;
+import com.google.gson.JsonParser;
 import com.mongodb.client.MongoCollection;
 import utils.DataSingleton;
 
 //import static com.mongodb.client.model.Filters.gte;
 
+@SuppressWarnings("deprecation")
 public class CRUD implements Runnable{
 
 	public void readDB() {
@@ -25,9 +27,12 @@ public class CRUD implements Runnable{
 		for (Document doc : docsList) {
 			
 			TextFile text = new TextFile();
-			JSONObject jsonObj = new JSONObject(doc.toJson());
-			text.setFileName(jsonObj.get("file_name").toString());
-			text.setFileContent(jsonObj.get("contents").toString());
+			
+			JsonParser parser = new JsonParser();
+			JsonElement neoJsonElement = parser.parse(doc.toJson());
+
+			text.setFileName(neoJsonElement.getAsJsonObject().get("file_name").toString());
+			text.setFileContent(neoJsonElement.getAsJsonObject().get("contents").toString());
 			
 			DataSingleton.getInstance().getTextFiles().add(text);
 		}
@@ -40,9 +45,10 @@ public class CRUD implements Runnable{
 		for (Document chr : chrsList) {
 			
 			CharacterFile charact = new CharacterFile();
-			JSONObject jsonObj = new JSONObject(chr.toJson());
-			charact.setName(jsonObj.get("character_name").toString());
-			charact.setDetails(jsonObj.get("details").toString());
+			JsonParser parser = new JsonParser();
+			JsonElement neoJsonElement = parser.parse(chr.toJson());
+			charact.setName(neoJsonElement.getAsJsonObject().get("character_name").toString());
+			charact.setDetails(neoJsonElement.getAsJsonObject().get("details").toString());
 			
 			DataSingleton.getInstance().getCharFiles().add(charact);
 		}
