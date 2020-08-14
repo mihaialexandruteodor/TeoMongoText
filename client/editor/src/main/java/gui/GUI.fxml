@@ -7,6 +7,7 @@
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
+<?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
 <?import javafx.scene.control.SplitPane?>
 <?import javafx.scene.layout.AnchorPane?>
@@ -67,14 +68,6 @@
           <children>
                   <StackPane maxWidth="-Infinity" prefHeight="150.0" prefWidth="230.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                  <Label fx:id="files_label" alignment="CENTER" prefWidth="-1.0" style="&#10;" text="Files" textAlignment="CENTER" wrapText="false">
-                    <font>
-                      <Font size="18.0" fx:id="x1" />
-                    </font>
-                    <textFill>
-                      <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
-                    </textFill>
-                  </Label>
                         <ListView fx:id="file_list_id" prefHeight="200.0" prefWidth="200.0" />
                      </children>
                   </StackPane>
@@ -82,18 +75,23 @@
         </AnchorPane>
             <StackPane minWidth="740.0">
                <children>
-          <Label fx:id="text_label" alignment="CENTER" font="$x1" style="&#10;" text="Text" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+          <Label fx:id="text_label" alignment="CENTER" style="&#10;" text="Text" textAlignment="CENTER" wrapText="false">
+                     <font>
+                <Font size="18.0" fx:id="x1" />
+                     </font>
+                     <textFill>
+                <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
+                     </textFill></Label>
                   <HTMLEditor fx:id="textBox" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" />
                </children>
             </StackPane>
         <AnchorPane>
           <children>
-                  <StackPane maxWidth="-Infinity" prefHeight="150.0" prefWidth="230.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                  <Label fx:id="characters_label" alignment="CENTER" font="$x1" style="&#10;" text="Characters" textAlignment="CENTER" textFill="$x2" wrapText="false" />
+                  <ScrollPane fitToWidth="true" prefWidth="230.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                     <content>
                         <Accordion fx:id="char_list_id" />
-                     </children>
-                  </StackPane>
+                     </content>
+                  </ScrollPane>
           </children>
         </AnchorPane>
       </items>

@@ -34,6 +34,7 @@ public class DataSingleton {
 		database = null;
 		crudObj = new CRUD();
 		textFiles = new ArrayList<>();
+		charFiles = new ArrayList<>();
 		setIniFilePath();
 	}
 

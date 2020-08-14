@@ -25,12 +25,6 @@ public class GuiController {
 	@FXML
 	Label text_label;
 
-	@FXML
-	Label files_label;
-
-	@FXML
-	Label characters_label;
-
 	/**
 	 * Lists
 	 */
@@ -227,7 +221,11 @@ public class GuiController {
 	void populateCharactersList() {
 		if (DataSingleton.getInstance().getCharFiles() != null) {
 			DataSingleton.getInstance().getCharFiles()
-					.forEach((c) -> observableSetCharFiles.add(new TitledPane(c.getName(), new Label(c.getDetails()))));
+					.forEach((c) -> {
+						Label l = new Label(c.getDetails());
+						l.setWrapText(true);
+						observableSetCharFiles.add(new TitledPane(c.getName(), l));
+					});
 
 			char_list_id.getPanes().removeAll();
 			char_list_id.getPanes().addAll(observableSetCharFiles);
