@@ -25,7 +25,7 @@ public class MainFxClass extends Application{
 	@Override
 	public void start(Stage primaryStage) throws Exception {
 		try {
-			fxmlLoader = new FXMLLoader(getClass().getResource("/gui/GUI.fxml")); 
+			fxmlLoader = new FXMLLoader(getClass().getResource("/TeoMongoText/editor/GUI.fxml")); 
 			Pane root = fxmlLoader.load();
 			Scene scene = new Scene(root, 1200, 600);
 
