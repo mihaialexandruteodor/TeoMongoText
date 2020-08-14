@@ -14,7 +14,7 @@
         <maven.compiler.source>11</maven.compiler.source>
         <maven.compiler.target>11</maven.compiler.target>
         <javafx.version>11</javafx.version>
-        <mainClassName>main.Main</mainClassName>
+        <mainClassName>src.main.Main</mainClassName>
     </properties>
 
     <dependencies>
