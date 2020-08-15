@@ -13,7 +13,7 @@
         <maven.compiler.source>14</maven.compiler.source>
         <maven.compiler.target>14</maven.compiler.target>
         <javafx.version>11</javafx.version>
-        <mainClassName>src.main.Main</mainClassName>
+        <mainClassName>Launcher</mainClassName>
     </properties>
 
     <dependencies>
@@ -38,13 +38,25 @@
      <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-web</artifactId>
-            <version>${javafx.version}</version>
+            <version>16-ea+1</version>
         </dependency>
     
         <dependency>
             <groupId>org.openjfx</groupId>
             <artifactId>javafx-controls</artifactId>
-            <version>${javafx.version}</version>
+            <version>16-ea+1</version>
+        </dependency>
+        
+         <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-graphics</artifactId>
+            <version>16-ea+1</version>
+        </dependency>
+        
+         <dependency>
+            <groupId>org.openjfx</groupId>
+            <artifactId>javafx-swing</artifactId>
+            <version>16-ea+1</version>
         </dependency>
         
         <!-- https://mvnrepository.com/artifact/org.openjfx/javafx-fxml -->
