@@ -7,8 +7,9 @@ import java.util.List;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoDatabase;
 
+import connector.CRUD;
+import connector.MongoDbConnector;
 import gui.GuiController;
-import model.CRUD;
 import model.CharacterFile;
 import model.TextFile;
 

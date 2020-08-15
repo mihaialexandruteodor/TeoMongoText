@@ -1,4 +1,4 @@
-package model;
+package connector;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -8,9 +8,10 @@ import org.bson.Document;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.mongodb.client.MongoCollection;
-import utils.DataSingleton;
 
-//import static com.mongodb.client.model.Filters.gte;
+import model.CharacterFile;
+import model.TextFile;
+import utils.DataSingleton;
 
 @SuppressWarnings("deprecation")
 public class CRUD implements Runnable{

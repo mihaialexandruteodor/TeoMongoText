@@ -1,4 +1,4 @@
-package utils;
+package connector;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
@@ -7,9 +7,11 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
-import com.mongodb.ConnectionString;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoClients;
+
+import utils.DataSingleton;
+
 import com.mongodb.client.MongoClient;
 
 public class MongoDbConnector implements Runnable{
