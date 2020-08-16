@@ -5,18 +5,22 @@ import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TitledPane;
 import javafx.scene.web.HTMLEditor;
+import model.TextFile;
 import utils.DataSingleton;
 
 public class GuiController {
 
-	private ObservableSet<String> observableSetTextFiles;
+	private ObservableSet<TextFile> observableSetTextFiles;
 	private ObservableSet<TitledPane> observableSetCharFiles;
+	
+	private TextFile currentFile;
 
 	/**
 	 * Labels
@@ -30,7 +34,7 @@ public class GuiController {
 	 */
 
 	@FXML
-	ListView<String> file_list_id;
+	ListView<TextFile> file_list_id;
 
 	@FXML
 	Accordion char_list_id;
@@ -210,13 +214,15 @@ public class GuiController {
 	void populateFileList() {
 
 		if (DataSingleton.getInstance().getTextFiles() != null) {
-			DataSingleton.getInstance().getTextFiles().forEach((c) -> observableSetTextFiles.add(c.getFileName()));
+			DataSingleton.getInstance().getTextFiles().forEach((c) -> observableSetTextFiles.add(c));
 			file_list_id.getItems().removeAll();
 			file_list_id.getItems().addAll(observableSetTextFiles);
 			
 			textBox.setHtmlText(DataSingleton.getInstance().getTextFiles().get(0).getFileContent());
 			
 			file_list_id.refresh();
+			
+			currentFile = file_list_id.getItems().get(0);
 		}
 
 	}
@@ -237,11 +243,43 @@ public class GuiController {
 	}
 
 	public void initialize() {
+		
 		observableSetTextFiles = FXCollections.observableSet();
 		observableSetCharFiles = FXCollections.observableSet();
 
-		// loadDataIntoLists();
-		// textBox.setVisible(false);
+		
+		file_list_id.setCellFactory(lv -> {
+		        ListCell<TextFile>  cell = new ListCell<TextFile>() {
+
+		            @Override
+		            protected void updateItem(TextFile item, boolean empty) {
+		            	super.updateItem(item, empty);
+		                if (item == null || empty) {
+		                    setText(null);
+		                } else {
+		                    setText(item.getFileName());
+
+		                }
+		            }
+		        };
+		        
+		        cell.setOnMouseClicked(e -> {
+	                if (!cell.isEmpty()) {
+	                	currentFile = cell.getItem();
+	                	textBox.setHtmlText(currentFile.getFileContent());
+	                	System.out.println("You clicked on " + currentFile.getFileName());
+	                    e.consume();
+	                }
+	            });
+		        
+		        return cell;
+		    });
+		
+		file_list_id.setOnMouseClicked(e -> {
+            System.out.println("You clicked on an empty cell");
+        });
+		
+		
 		textBox.autosize();
 
 	}
