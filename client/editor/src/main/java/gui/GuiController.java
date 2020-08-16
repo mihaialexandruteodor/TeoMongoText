@@ -213,6 +213,9 @@ public class GuiController {
 			DataSingleton.getInstance().getTextFiles().forEach((c) -> observableSetTextFiles.add(c.getFileName()));
 			file_list_id.getItems().removeAll();
 			file_list_id.getItems().addAll(observableSetTextFiles);
+			
+			textBox.setHtmlText(DataSingleton.getInstance().getTextFiles().get(0).getFileContent());
+			
 			file_list_id.refresh();
 		}
 
