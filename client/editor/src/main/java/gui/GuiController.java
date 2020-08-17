@@ -1,5 +1,7 @@
 package gui;
 
+import org.jsoup.Jsoup;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
@@ -128,7 +130,9 @@ public class GuiController {
 
 	@FXML
 	private void fileSave() {
-
+		currentFile.setFileContent(Jsoup.parse(textBox.getHtmlText()).text());
+		System.out.println(currentFile.getFileContent().toString());
+		DataSingleton.getInstance().getCrudObj().updateTextFileContents(currentFile);
 	}
 
 	@FXML

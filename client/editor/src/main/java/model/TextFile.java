@@ -2,7 +2,15 @@ package model;
 
 public class TextFile {
 	
-	String fileName, fileContent;
+	String fileName, fileContent, id;
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
 
 	public String getFileName() {
 		return fileName;
