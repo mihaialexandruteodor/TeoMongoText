@@ -218,11 +218,11 @@ public class GuiController {
 			file_list_id.getItems().removeAll();
 			file_list_id.getItems().addAll(observableSetTextFiles);
 			
-			textBox.setHtmlText(DataSingleton.getInstance().getTextFiles().get(0).getFileContent());
-			
 			file_list_id.refresh();
 			
 			currentFile = file_list_id.getItems().get(0);
+			
+			textBox.setHtmlText(currentFile.getFileContent().substring(1, currentFile.getFileContent().length()-1));
 		}
 
 	}
@@ -233,7 +233,7 @@ public class GuiController {
 					.forEach((c) -> {
 						Label l = new Label(c.getDetails());
 						l.setWrapText(true);
-						observableSetCharFiles.add(new TitledPane(c.getName(), l));
+						observableSetCharFiles.add(new TitledPane(c.getName().replace("\"", ""), l));
 					});
 
 			char_list_id.getPanes().removeAll();
@@ -257,7 +257,7 @@ public class GuiController {
 		                if (item == null || empty) {
 		                    setText(null);
 		                } else {
-		                    setText(item.getFileName());
+		                    setText(item.getFileName().replace("\"", ""));
 
 		                }
 		            }
@@ -266,7 +266,7 @@ public class GuiController {
 		        cell.setOnMouseClicked(e -> {
 	                if (!cell.isEmpty()) {
 	                	currentFile = cell.getItem();
-	                	textBox.setHtmlText(currentFile.getFileContent());
+	                	textBox.setHtmlText(currentFile.getFileContent().substring(1, currentFile.getFileContent().length()-1));
 	                	System.out.println("You clicked on " + currentFile.getFileName());
 	                    e.consume();
 	                }
