@@ -1,7 +1,5 @@
 package gui;
 
-import org.jsoup.Jsoup;
-
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
@@ -18,11 +16,11 @@ import model.TextFile;
 import utils.DataSingleton;
 
 public class GuiController {
+	
+
 
 	private ObservableSet<TextFile> observableSetTextFiles;
 	private ObservableSet<TitledPane> observableSetCharFiles;
-	
-	private TextFile currentFile;
 
 	/**
 	 * Labels
@@ -104,6 +102,7 @@ public class GuiController {
 	 */
 
 	public GuiController() {
+		
 	}
 
 	public void loadDataIntoLists() {
@@ -130,9 +129,7 @@ public class GuiController {
 
 	@FXML
 	private void fileSave() {
-		currentFile.setFileContent(Jsoup.parse(textBox.getHtmlText()).text());
-		System.out.println(currentFile.getFileContent().toString());
-		DataSingleton.getInstance().getCrudObj().updateTextFileContents(currentFile);
+		DataSingleton.getInstance().saveOperation();
 	}
 
 	@FXML
@@ -215,30 +212,31 @@ public class GuiController {
 
 	}
 
+	
+
 	void populateFileList() {
 
 		if (DataSingleton.getInstance().getTextFiles() != null) {
 			DataSingleton.getInstance().getTextFiles().forEach((c) -> observableSetTextFiles.add(c));
 			file_list_id.getItems().removeAll();
 			file_list_id.getItems().addAll(observableSetTextFiles);
-			
+
 			file_list_id.refresh();
-			
-			currentFile = file_list_id.getItems().get(0);
-			
-			textBox.setHtmlText(currentFile.getFileContent().substring(1, currentFile.getFileContent().length()-1));
+
+			DataSingleton.getInstance().setCurrentFile(file_list_id.getItems().get(0));
+
+			textBox.setHtmlText(DataSingleton.getInstance().getCurrentFile().getFileContent().substring(1, DataSingleton.getInstance().getCurrentFile().getFileContent().length() - 1));
 		}
 
 	}
 
 	void populateCharactersList() {
 		if (DataSingleton.getInstance().getCharFiles() != null) {
-			DataSingleton.getInstance().getCharFiles()
-					.forEach((c) -> {
-						Label l = new Label(c.getDetails());
-						l.setWrapText(true);
-						observableSetCharFiles.add(new TitledPane(c.getName().replace("\"", ""), l));
-					});
+			DataSingleton.getInstance().getCharFiles().forEach((c) -> {
+				Label l = new Label(c.getDetails());
+				l.setWrapText(true);
+				observableSetCharFiles.add(new TitledPane(c.getName().replace("\"", ""), l));
+			});
 
 			char_list_id.getPanes().removeAll();
 			char_list_id.getPanes().addAll(observableSetCharFiles);
@@ -246,44 +244,46 @@ public class GuiController {
 
 	}
 
+
 	public void initialize() {
-		
+
 		observableSetTextFiles = FXCollections.observableSet();
 		observableSetCharFiles = FXCollections.observableSet();
-
 		
+		DataSingleton.getInstance().setTextBox(textBox);
+
 		file_list_id.setCellFactory(lv -> {
-		        ListCell<TextFile>  cell = new ListCell<TextFile>() {
+			ListCell<TextFile> cell = new ListCell<TextFile>() {
 
-		            @Override
-		            protected void updateItem(TextFile item, boolean empty) {
-		            	super.updateItem(item, empty);
-		                if (item == null || empty) {
-		                    setText(null);
-		                } else {
-		                    setText(item.getFileName().replace("\"", ""));
+				@Override
+				protected void updateItem(TextFile item, boolean empty) {
+					super.updateItem(item, empty);
+					if (item == null || empty) {
+						setText(null);
+					} else {
+						setText(item.getFileName().replace("\"", ""));
 
-		                }
-		            }
-		        };
-		        
-		        cell.setOnMouseClicked(e -> {
-	                if (!cell.isEmpty()) {
-	                	currentFile = cell.getItem();
-	                	textBox.setHtmlText(currentFile.getFileContent().substring(1, currentFile.getFileContent().length()-1));
-	                	System.out.println("You clicked on " + currentFile.getFileName());
-	                    e.consume();
-	                }
-	            });
-		        
-		        return cell;
-		    });
-		
+					}
+				}
+			};
+
+			cell.setOnMouseClicked(e -> {
+				if (!cell.isEmpty()) {
+					DataSingleton.getInstance().setCurrentFile(cell.getItem());
+					textBox.setHtmlText(
+							DataSingleton.getInstance().getCurrentFile().getFileContent().substring(1, DataSingleton.getInstance().getCurrentFile().getFileContent().length() - 1));
+					System.out.println("You clicked on " + DataSingleton.getInstance().getCurrentFile().getFileName());
+					e.consume();
+				}
+			});
+
+			return cell;
+		});
+
 		file_list_id.setOnMouseClicked(e -> {
-            System.out.println("You clicked on an empty cell");
-        });
-		
-		
+			System.out.println("You clicked on an empty cell");
+		});
+
 		textBox.autosize();
 
 	}

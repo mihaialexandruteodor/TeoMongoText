@@ -1,8 +1,13 @@
 package main;
 
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyCodeCombination;
+import javafx.scene.input.KeyCombination;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import utils.DataSingleton;
@@ -38,6 +43,8 @@ public class MainFxClass extends Application{
 			iniLoader.loadIniSettings();
 			
 			DataSingleton.getInstance().setGuiController(fxmlLoader.getController());
+			
+			addEventHandlers(scene);
 
 			
 			Thread t = new Thread(DataSingleton.getInstance().getMongoDbConnector());
@@ -72,6 +79,22 @@ public class MainFxClass extends Application{
 		
     }
 
-	
+	void addEventHandlers(Scene scene)
+	{
+		final KeyCombination saveEvent = new KeyCodeCombination(KeyCode.S, KeyCombination.SHORTCUT_DOWN);
+		final KeyCombination copyEvent = new KeyCodeCombination(KeyCode.C, KeyCombination.SHORTCUT_DOWN);
+		final KeyCombination pasteEvent = new KeyCodeCombination(KeyCode.V, KeyCombination.SHORTCUT_DOWN);
+		final KeyCombination undoEvent = new KeyCodeCombination(KeyCode.Z, KeyCombination.SHORTCUT_DOWN);
+		final KeyCombination cutEvent = new KeyCodeCombination(KeyCode.X, KeyCombination.SHORTCUT_DOWN);
+
+		scene.addEventHandler(KeyEvent.KEY_PRESSED, new EventHandler<KeyEvent>() {
+			@Override
+			public void handle(KeyEvent event) {
+				if (saveEvent.match(event)) {
+					DataSingleton.getInstance().saveOperation();
+				}
+			}
+		});
+	}
 
 }

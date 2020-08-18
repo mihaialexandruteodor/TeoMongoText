@@ -4,12 +4,16 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.jsoup.Jsoup;
+
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoDatabase;
 
 import connector.CRUD;
 import connector.MongoDbConnector;
 import gui.GuiController;
+import javafx.scene.Scene;
+import javafx.scene.web.HTMLEditor;
 import model.CharacterFile;
 import model.TextFile;
 
@@ -26,6 +30,9 @@ public class DataSingleton {
 	List<TextFile> textFiles;
 	List<CharacterFile> charFiles;
 	String iniFilePath;
+	Scene scene;
+	TextFile currentFile;
+	HTMLEditor textBox;
 
 	private DataSingleton() {
 		mongoDbConnector = new MongoDbConnector();
@@ -109,6 +116,32 @@ public class DataSingleton {
 		this.charFiles = charFiles;
 	}
 	
+	public Scene getScene() {
+		return scene;
+	}
+
+	public void setScene(Scene scene) {
+		this.scene = scene;
+	}
+	
+	public TextFile getCurrentFile() {
+		return currentFile;
+	}
+
+	public void setCurrentFile(TextFile currentFile) {
+		this.currentFile = currentFile;
+	}
+	
+	public HTMLEditor getTextBox() {
+		return textBox;
+	}
+
+
+
+	public void setTextBox(HTMLEditor textBox) {
+		this.textBox = textBox;
+	}
+
 	
 	public String getIniFilePath() {
 		return iniFilePath;
@@ -160,6 +193,12 @@ public class DataSingleton {
 					+ "Settings.ini";
 				}
 		
+	}
+	
+	public void saveOperation() {
+		currentFile.setFileContent(Jsoup.parse(textBox.getHtmlText()).text());
+		System.out.println(currentFile.getFileContent().toString());
+		crudObj.updateTextFileContents(currentFile);
 	}
 
 }
