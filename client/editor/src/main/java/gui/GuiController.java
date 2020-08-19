@@ -1,7 +1,11 @@
 package gui;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
+import javafx.event.EventHandler;
+import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
@@ -12,7 +16,10 @@ import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.MouseEvent;
+import javafx.scene.text.TextAlignment;
 import javafx.scene.web.HTMLEditor;
+import model.CharacterFile;
 import model.TextFile;
 import utils.DataSingleton;
 
@@ -21,7 +28,7 @@ public class GuiController {
 
 
 	private ObservableSet<TextFile> observableSetTextFiles;
-	private ObservableSet<TitledPane> observableSetCharFiles;
+	private ObservableSet<CharacterFile> observableSetCharFiles;
 
 	/**
 	 * Labels
@@ -94,12 +101,18 @@ public class GuiController {
 
 	@FXML
 	MenuItem menu_about;
+	
+	@FXML
+	MenuItem editCharacter;
 
 	@FXML
 	HTMLEditor textBox;
 	
 	@FXML
 	Button refreshButton;
+	
+	@FXML
+	Button deleteChButton;
 
 	/**
 	 * Methods
@@ -217,11 +230,37 @@ public class GuiController {
 	private void helpAbout() {
 
 	}
+	
+	@FXML
+	private void newCharacterWindow() {
+		new NewCharacterWindow();
+
+	}
+	
 
 	@FXML
 	private void performRefresh()
 	{
 		loadDataIntoLists();
+	}
+	
+	@FXML
+	private void deleteCh()
+	{
+		DataSingleton.getInstance().getCrudObj().removeCharacter();
+		
+		try {
+			DataSingleton.getInstance().getMongoDbConnector().connectToDatabase();
+			
+			DataSingleton.getInstance().getCrudObj().readDB();
+
+		}
+		catch( IllegalArgumentException e)
+		{
+			e.printStackTrace();
+		}
+		
+		performRefresh();
 	}
 	
 
@@ -249,12 +288,22 @@ public class GuiController {
 		
 		if (DataSingleton.getInstance().getCharFiles() != null && DataSingleton.getInstance().getCharFiles().isEmpty() == false) {
 			DataSingleton.getInstance().getCharFiles().forEach((c) -> {
-				Label l = new Label(c.getDetails());
+				Label l = new Label();
+				l.setMaxWidth(180);
+				l.setText(c.getDetails());
 				l.setWrapText(true);
-				observableSetCharFiles.add(new TitledPane(c.getName().replace("\"", ""), l));
+				
+				c.expandedProperty().addListener(new ChangeListener<Boolean>() {
+				    @Override
+				    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+				    	DataSingleton.getInstance().setCurrentCharacter(c);
+				    }
+				});
+				observableSetCharFiles.add(c);
 			});
 
 			char_list_id.getPanes().addAll(FXCollections.observableArrayList(observableSetCharFiles));
+			
 		}
 
 	}
@@ -298,6 +347,7 @@ public class GuiController {
 		file_list_id.setOnMouseClicked(e -> {
 			System.out.println("You clicked on an empty cell");
 		});
+		
 
 		textBox.autosize();
 

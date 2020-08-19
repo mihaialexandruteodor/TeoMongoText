@@ -1,8 +1,16 @@
 package model;
 
-public class CharacterFile {
+import javafx.scene.control.Label;
+import javafx.scene.control.TitledPane;
+
+public class CharacterFile extends TitledPane{
 	
 	private String name, details;
+	
+	public CharacterFile(String title, Label label)
+	{
+		super(title, label);
+	}
 
 	public String getName() {
 		return name;

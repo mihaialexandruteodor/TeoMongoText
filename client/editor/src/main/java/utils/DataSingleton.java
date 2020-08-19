@@ -32,6 +32,8 @@ public class DataSingleton {
 	String iniFilePath;
 	Scene scene;
 	TextFile currentFile;
+	CharacterFile currentCharacter;
+
 	HTMLEditor textBox;
 
 	private DataSingleton() {
@@ -132,6 +134,14 @@ public class DataSingleton {
 		this.currentFile = currentFile;
 	}
 	
+	public CharacterFile getCurrentCharacter() {
+		return currentCharacter;
+	}
+
+	public void setCurrentCharacter(CharacterFile currentCharacter) {
+		this.currentCharacter = currentCharacter;
+	}
+	
 	public HTMLEditor getTextBox() {
 		return textBox;
 	}
@@ -198,7 +208,7 @@ public class DataSingleton {
 	public void saveOperation() {
 		currentFile.setFileContent(Jsoup.parse(textBox.getHtmlText()).text());
 		System.out.println(currentFile.getFileContent().toString());
-		crudObj.updateTextFileContents(currentFile);
+		crudObj.updateTextFileContents();
 	}
 
 }

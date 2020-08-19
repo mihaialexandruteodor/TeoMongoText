@@ -54,6 +54,7 @@
             <MenuItem fx:id="menu_unselect_all" mnemonicParsing="false" onAction="#editUnselectAll" text="Unselect All" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem fx:id="menu_mongodb" mnemonicParsing="false" onAction="#setConnectionString" text="Set MongoDb Connection String" />
+                  <MenuItem fx:id="editCharacter" mnemonicParsing="false" onAction="#newCharacterWindow" text="New Character" />
           </items>
         </Menu>
         <Menu fx:id="menu_help" mnemonicParsing="false" text="Help">
@@ -100,6 +101,7 @@
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
       <children>
         <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+            <Button fx:id="deleteChButton" mnemonicParsing="false" onAction="#deleteCh" text="Delete Character" />
             <Button id="refreshButton" fx:id="refreshButton" mnemonicParsing="false" onAction="#performRefresh" text="Refresh" />
       </children>
       <padding>
