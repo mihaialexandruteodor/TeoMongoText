@@ -14,10 +14,9 @@ import org.ini4j.Wini;
 
 import utils.DataSingleton;
 
-public class ConnectionStringInputWindow {
+public class ConnectionStringInputWindow{
 
 	public ConnectionStringInputWindow() {
-
 		JFrame frame = new JFrame("MongoDB connection string");
 		JButton buttonSubmit = new JButton("Submit");
 		buttonSubmit.setBounds(100, 100, 140, 40);
@@ -67,7 +66,17 @@ public class ConnectionStringInputWindow {
 
 				label1.setText("String has been submitted and saved inside the Settings.ini file");
 				
-				DataSingleton.getInstance().getMongoDbConnector().connectToDatabase();
+				try {
+					DataSingleton.getInstance().getMongoDbConnector().connectToDatabase();
+					
+					DataSingleton.getInstance().getCrudObj().readDB();
+
+				}
+				catch( IllegalArgumentException e)
+				{
+					e.printStackTrace();
+				}
+				
 			}
 		});
 
@@ -75,9 +84,11 @@ public class ConnectionStringInputWindow {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
+				
 				frame.dispose();
 			}
 		});
+		
 	}
 
 }

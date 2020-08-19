@@ -4,6 +4,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -96,6 +97,9 @@ public class GuiController {
 
 	@FXML
 	HTMLEditor textBox;
+	
+	@FXML
+	Button refreshButton;
 
 	/**
 	 * Methods
@@ -200,6 +204,8 @@ public class GuiController {
 	private void setConnectionString() {
 
 		new ConnectionStringInputWindow();
+		
+		performRefresh();
 
 	}
 
@@ -212,18 +218,24 @@ public class GuiController {
 
 	}
 
+	@FXML
+	private void performRefresh()
+	{
+		loadDataIntoLists();
+	}
 	
 
 	void populateFileList() {
+		
+		file_list_id.getItems().removeAll(observableSetTextFiles);
+		observableSetTextFiles.clear();
 
-		if (DataSingleton.getInstance().getTextFiles() != null) {
+		if (DataSingleton.getInstance().getTextFiles() != null && DataSingleton.getInstance().getTextFiles().isEmpty() == false) {
 			DataSingleton.getInstance().getTextFiles().forEach((c) -> observableSetTextFiles.add(c));
-			file_list_id.getItems().removeAll();
-			file_list_id.getItems().addAll(observableSetTextFiles);
+			
+			file_list_id.getItems().addAll(FXCollections.observableArrayList(observableSetTextFiles));
 
-			file_list_id.refresh();
-
-			DataSingleton.getInstance().setCurrentFile(file_list_id.getItems().get(0));
+			DataSingleton.getInstance().setCurrentFile(DataSingleton.getInstance().getTextFiles().get(0));
 
 			textBox.setHtmlText(DataSingleton.getInstance().getCurrentFile().getFileContent().substring(1, DataSingleton.getInstance().getCurrentFile().getFileContent().length() - 1));
 		}
@@ -231,15 +243,18 @@ public class GuiController {
 	}
 
 	void populateCharactersList() {
-		if (DataSingleton.getInstance().getCharFiles() != null) {
+		
+		char_list_id.getPanes().removeAll(observableSetCharFiles);
+		observableSetCharFiles.clear();
+		
+		if (DataSingleton.getInstance().getCharFiles() != null && DataSingleton.getInstance().getCharFiles().isEmpty() == false) {
 			DataSingleton.getInstance().getCharFiles().forEach((c) -> {
 				Label l = new Label(c.getDetails());
 				l.setWrapText(true);
 				observableSetCharFiles.add(new TitledPane(c.getName().replace("\"", ""), l));
 			});
 
-			char_list_id.getPanes().removeAll();
-			char_list_id.getPanes().addAll(observableSetCharFiles);
+			char_list_id.getPanes().addAll(FXCollections.observableArrayList(observableSetCharFiles));
 		}
 
 	}

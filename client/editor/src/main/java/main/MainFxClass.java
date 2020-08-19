@@ -46,24 +46,9 @@ public class MainFxClass extends Application{
 			
 			addEventHandlers(scene);
 
+			DataSingleton.getInstance().getMongoDbConnector().run();
 			
-			Thread t = new Thread(DataSingleton.getInstance().getMongoDbConnector());
-			t.start();
-			try {
-				t.join();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-			
-			Thread t2 = new Thread(DataSingleton.getInstance().getCrudObj());
-			t2.start();
-			try {
-				t2.join();
-			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			DataSingleton.getInstance().getCrudObj().run();
 			
 			DataSingleton.getInstance().getGuiController().loadDataIntoLists();
 			
@@ -92,6 +77,19 @@ public class MainFxClass extends Application{
 			public void handle(KeyEvent event) {
 				if (saveEvent.match(event)) {
 					DataSingleton.getInstance().saveOperation();
+				}
+				else if(copyEvent.match(event))
+				{
+					
+				}else if(pasteEvent.match(event))
+				{
+					
+				}else if(undoEvent.match(event))
+				{
+					
+				}else if(cutEvent.match(event))
+				{
+					
 				}
 			}
 		});

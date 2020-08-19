@@ -7,6 +7,7 @@ import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 
+import com.mongodb.ConnectionString;
 import com.mongodb.MongoException;
 import com.mongodb.client.MongoClients;
 
@@ -21,9 +22,11 @@ public class MongoDbConnector implements Runnable{
 		boolean success = true;
 		
 		MongoClient mongoClient = null;
+		
 
 		try {
-			 mongoClient = MongoClients.create(DataSingleton.getInstance().getConnectionString());
+			ConnectionString str = new ConnectionString(DataSingleton.getInstance().getConnectionString());
+			 mongoClient = MongoClients.create(str);
 		}
 		catch(IllegalArgumentException exc)
 		{
@@ -32,6 +35,8 @@ public class MongoDbConnector implements Runnable{
 			success = false;
 			
 		}
+		
+		if(success) {
 
 		try {
 			DataSingleton.getInstance().setMongoClient(mongoClient);	
@@ -43,7 +48,9 @@ public class MongoDbConnector implements Runnable{
 			success = false;
 			
 		}
+		}
 		
+		if(success) {
 		try {
 			DataSingleton.getInstance().setDatabase(DataSingleton.getInstance().getMongoClient().getDatabase("teomongotext"));
 		}
@@ -53,7 +60,7 @@ public class MongoDbConnector implements Runnable{
 			ex.printStackTrace();
 			success = false;
 		}
-
+		}
 
 		return success;
 	}
@@ -87,7 +94,12 @@ public class MongoDbConnector implements Runnable{
 
 	@Override
 	public void run() {
-		connectToDatabase();
+		if(connectToDatabase())
+		{
+			DataSingleton.getInstance().getCrudObj().run();
+			
+			DataSingleton.getInstance().getGuiController().loadDataIntoLists();
+		}
 		
 	}
 

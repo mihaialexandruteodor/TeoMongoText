@@ -22,7 +22,8 @@ public class CRUD implements Runnable{
 
 	public void readDB() {
 
-		// collection = files
+		DataSingleton.getInstance().setTextFiles( new ArrayList<>() );
+		DataSingleton.getInstance().setCharFiles( new ArrayList<>() );
 
 		MongoCollection<Document> filesCollection = DataSingleton.getInstance().getDatabase()
 				.getCollection("files");
