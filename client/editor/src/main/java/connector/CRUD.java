@@ -18,7 +18,7 @@ import utils.DataSingleton;
 
 
 @SuppressWarnings("deprecation")
-public class CRUD implements Runnable{
+public class CRUD {
 
 	public void readDB() {
 
@@ -78,8 +78,4 @@ public class CRUD implements Runnable{
         collection.updateOne(searchQuery, setQuery);
 	}
 
-	@Override
-	public void run() {
-		readDB();
-	}
 }

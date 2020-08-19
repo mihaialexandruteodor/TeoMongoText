@@ -46,9 +46,9 @@ public class MainFxClass extends Application{
 			
 			addEventHandlers(scene);
 
-			DataSingleton.getInstance().getMongoDbConnector().run();
+			DataSingleton.getInstance().getMongoDbConnector().init();
 			
-			DataSingleton.getInstance().getCrudObj().run();
+			DataSingleton.getInstance().getCrudObj().readDB();
 			
 			DataSingleton.getInstance().getGuiController().loadDataIntoLists();
 			

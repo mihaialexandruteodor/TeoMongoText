@@ -15,7 +15,7 @@ import utils.DataSingleton;
 
 import com.mongodb.client.MongoClient;
 
-public class MongoDbConnector implements Runnable{
+public class MongoDbConnector {
 
 	public boolean connectToDatabase() {
 		
@@ -92,11 +92,10 @@ public class MongoDbConnector implements Runnable{
 		});
 	}
 
-	@Override
-	public void run() {
+	public void init() {
 		if(connectToDatabase())
 		{
-			DataSingleton.getInstance().getCrudObj().run();
+			DataSingleton.getInstance().getCrudObj().readDB();
 			
 			DataSingleton.getInstance().getGuiController().loadDataIntoLists();
 		}
