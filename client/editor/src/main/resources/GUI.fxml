@@ -100,7 +100,10 @@
     </SplitPane>
     <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
       <children>
-        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS" />
+        <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS">
+               <children>
+                  <Button fx:id="deleteFileButton" layoutX="12.0" mnemonicParsing="false" onAction="#deleteFile" text="Delete File" />
+               </children></Pane>
             <Button fx:id="deleteChButton" mnemonicParsing="false" onAction="#deleteCh" text="Delete Character" />
             <Button id="refreshButton" fx:id="refreshButton" mnemonicParsing="false" onAction="#performRefresh" text="Refresh" />
       </children>

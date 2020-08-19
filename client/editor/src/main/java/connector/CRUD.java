@@ -109,11 +109,31 @@ public class CRUD {
 		  
 	}
 	
+	public void newTextFile(String name)
+	{
+		MongoCollection<Document> collection = DataSingleton.getInstance().getDatabase().getCollection("files");
+		
+		Document newCh = new Document("item", "file")
+		        .append("file_name", name)
+		        .append("contents", "");
+
+
+		collection.insertOne(newCh);
+		  
+	}
+	
 	public void removeCharacter()
 	{
 		MongoCollection<Document> collection = DataSingleton.getInstance().getDatabase().getCollection("characters");
 
 		collection.deleteOne(new Document("_id", new ObjectId(DataSingleton.getInstance().getCurrentCharacter().getId().replace("\"", ""))));
+	}
+	
+	public void removeFile()
+	{
+		MongoCollection<Document> collection = DataSingleton.getInstance().getDatabase().getCollection("files");
+
+		collection.deleteOne(new Document("_id", new ObjectId(DataSingleton.getInstance().getCurrentFile().getId().replace("\"", ""))));
 	}
 
 }

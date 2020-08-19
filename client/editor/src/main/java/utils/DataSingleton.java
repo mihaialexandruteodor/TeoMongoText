@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.safety.Whitelist;
 
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoDatabase;
@@ -206,8 +208,13 @@ public class DataSingleton {
 	}
 	
 	public void saveOperation() {
-		currentFile.setFileContent(Jsoup.parse(textBox.getHtmlText()).text());
-		System.out.println(currentFile.getFileContent().toString());
+		Document document = Jsoup.parse(textBox.getHtmlText());
+	    document.outputSettings(new Document.OutputSettings().prettyPrint(false));
+	    document.select("br").append("\\n");
+	    //document.select("p").prepend("\\n\\n");
+	    String content = document.html().replaceAll("\\\\n", "\\n");
+	    Jsoup.clean(content, "", Whitelist.none(), new Document.OutputSettings().prettyPrint(false));
+		currentFile.setFileContent(content);
 		crudObj.updateTextFileContents();
 	}
 

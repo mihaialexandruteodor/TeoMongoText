@@ -4,8 +4,6 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
-import javafx.event.EventHandler;
-import javafx.event.EventTarget;
 import javafx.fxml.FXML;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.Button;
@@ -15,9 +13,6 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Menu;
 import javafx.scene.control.MenuBar;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.TitledPane;
-import javafx.scene.input.MouseEvent;
-import javafx.scene.text.TextAlignment;
 import javafx.scene.web.HTMLEditor;
 import model.CharacterFile;
 import model.TextFile;
@@ -113,6 +108,9 @@ public class GuiController {
 	
 	@FXML
 	Button deleteChButton;
+	
+	@FXML
+	Button deleteFileButton;
 
 	/**
 	 * Methods
@@ -131,7 +129,7 @@ public class GuiController {
 
 	@FXML
 	private void fileNew() {
-
+		new NewTextFileWindow();
 	}
 
 	@FXML
@@ -263,6 +261,24 @@ public class GuiController {
 		performRefresh();
 	}
 	
+	@FXML
+	private void  deleteFile()
+	{
+		DataSingleton.getInstance().getCrudObj().removeFile();
+		
+		try {
+			DataSingleton.getInstance().getMongoDbConnector().connectToDatabase();
+			
+			DataSingleton.getInstance().getCrudObj().readDB();
+
+		}
+		catch( IllegalArgumentException e)
+		{
+			e.printStackTrace();
+		}
+		
+		performRefresh();
+	}	
 
 	void populateFileList() {
 		
