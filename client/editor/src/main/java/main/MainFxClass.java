@@ -25,6 +25,7 @@ public class MainFxClass extends Application{
 
 	double version = 1.0;
 	static FXMLLoader fxmlLoader;
+
 	
 	@Override
 	public void start(Stage primaryStage) throws Exception {

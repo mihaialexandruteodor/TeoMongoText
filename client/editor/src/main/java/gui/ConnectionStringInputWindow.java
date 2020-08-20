@@ -2,6 +2,8 @@ package gui;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.io.File;
 import java.io.IOException;
 
@@ -15,6 +17,16 @@ import org.ini4j.Wini;
 import utils.DataSingleton;
 
 public class ConnectionStringInputWindow{
+	
+	private final PropertyChangeSupport support = new PropertyChangeSupport(this);
+
+    public void addPropertyChangeListener(PropertyChangeListener listener) {
+        support.addPropertyChangeListener(listener);
+    }
+
+    public void removePropertyChangeListener(PropertyChangeListener listener) {
+        support.removePropertyChangeListener(listener);
+    }
 
 	public ConnectionStringInputWindow() {
 		JFrame frame = new JFrame("MongoDB connection string");
@@ -84,7 +96,7 @@ public class ConnectionStringInputWindow{
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				
+				support.firePropertyChange("refresh", true, false);
 				frame.dispose();
 			}
 		});

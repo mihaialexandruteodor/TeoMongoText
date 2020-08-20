@@ -1,5 +1,9 @@
 package gui;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -18,7 +22,7 @@ import model.CharacterFile;
 import model.TextFile;
 import utils.DataSingleton;
 
-public class GuiController {
+public class GuiController implements PropertyChangeListener{
 	
 
 
@@ -129,7 +133,8 @@ public class GuiController {
 
 	@FXML
 	private void fileNew() {
-		new NewTextFileWindow();
+		NewTextFileWindow window = new NewTextFileWindow();
+		window.addPropertyChangeListener(this);
 	}
 
 	@FXML
@@ -214,9 +219,8 @@ public class GuiController {
 	@FXML
 	private void setConnectionString() {
 
-		new ConnectionStringInputWindow();
-		
-		performRefresh();
+		ConnectionStringInputWindow window = new ConnectionStringInputWindow();
+		window.addPropertyChangeListener(this);
 
 	}
 
@@ -231,7 +235,8 @@ public class GuiController {
 	
 	@FXML
 	private void newCharacterWindow() {
-		new NewCharacterWindow();
+		NewCharacterWindow window = new NewCharacterWindow();
+		window.addPropertyChangeListener(this);
 
 	}
 	
@@ -367,6 +372,18 @@ public class GuiController {
 
 		textBox.autosize();
 
+	}
+
+	@Override
+	public void propertyChange(PropertyChangeEvent evt) {
+		if(evt.getPropertyName().equals("refresh"))
+			Platform.runLater(
+					  () -> {
+						  loadDataIntoLists();
+					  }
+					);
+			
+		
 	}
 
 }
