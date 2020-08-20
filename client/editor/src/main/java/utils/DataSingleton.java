@@ -6,8 +6,7 @@ import java.util.List;
 
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
-import org.jsoup.safety.Whitelist;
-
+import org.jsoup.parser.Parser;
 import com.mongodb.client.MongoClient;
 import com.mongodb.client.MongoDatabase;
 
@@ -207,15 +206,21 @@ public class DataSingleton {
 		
 	}
 	
+
 	public void saveOperation() {
-		Document document = Jsoup.parse(textBox.getHtmlText());
-	    document.outputSettings(new Document.OutputSettings().prettyPrint(false));
-	    document.select("br").append("\\n");
-	    //document.select("p").prepend("\\n\\n");
-	    String content = document.html().replaceAll("\\\\n", "\\n");
-	    Jsoup.clean(content, "", Whitelist.none(), new Document.OutputSettings().prettyPrint(false));
-		currentFile.setFileContent(content);
+		
+		Document doc = Jsoup.parse(textBox.getHtmlText());
+		currentFile.setFileContent(Parser.unescapeEntities(doc.html().replace("\n",""), false));
 		crudObj.updateTextFileContents();
+	}
+	
+
+	public String prepareHTMLtext(String text)
+	{
+		Parser.unescapeEntities(text, false);
+		text = text.replace("\\", "").replace("\"\"", "");
+		text = text.substring(1, text.length()-1);
+		return text;
 	}
 
 }

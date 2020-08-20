@@ -115,6 +115,9 @@ public class GuiController implements PropertyChangeListener{
 	
 	@FXML
 	Button deleteFileButton;
+	
+	@FXML
+	Button fileTxtButton;
 
 	/**
 	 * Methods
@@ -285,6 +288,7 @@ public class GuiController implements PropertyChangeListener{
 		performRefresh();
 	}	
 
+
 	void populateFileList() {
 		
 		file_list_id.getItems().removeAll(observableSetTextFiles);
@@ -297,7 +301,10 @@ public class GuiController implements PropertyChangeListener{
 
 			DataSingleton.getInstance().setCurrentFile(DataSingleton.getInstance().getTextFiles().get(0));
 
-			textBox.setHtmlText(DataSingleton.getInstance().getCurrentFile().getFileContent().substring(1, DataSingleton.getInstance().getCurrentFile().getFileContent().length() - 1));
+			String content = DataSingleton.getInstance()
+					.prepareHTMLtext(DataSingleton.getInstance().getCurrentFile().getFileContent());
+			
+			textBox.setHtmlText(content);
 		}
 
 	}
@@ -311,8 +318,9 @@ public class GuiController implements PropertyChangeListener{
 			DataSingleton.getInstance().getCharFiles().forEach((c) -> {
 				Label l = new Label();
 				l.setMaxWidth(180);
-				l.setText(c.getDetails());
 				l.setWrapText(true);
+				l.setText(c.getDetails().substring(1, c.getDetails().length()-1).replace("\\n", "\n"));
+				
 				
 				c.expandedProperty().addListener(new ChangeListener<Boolean>() {
 				    @Override
@@ -355,9 +363,10 @@ public class GuiController implements PropertyChangeListener{
 			cell.setOnMouseClicked(e -> {
 				if (!cell.isEmpty()) {
 					DataSingleton.getInstance().setCurrentFile(cell.getItem());
-					textBox.setHtmlText(
-							DataSingleton.getInstance().getCurrentFile().getFileContent().substring(1, DataSingleton.getInstance().getCurrentFile().getFileContent().length() - 1));
-					System.out.println("You clicked on " + DataSingleton.getInstance().getCurrentFile().getFileName());
+					String content = DataSingleton.getInstance()
+							.prepareHTMLtext(DataSingleton.getInstance().getCurrentFile().getFileContent());
+					
+					textBox.setHtmlText(content);
 					e.consume();
 				}
 			});
@@ -373,6 +382,12 @@ public class GuiController implements PropertyChangeListener{
 		textBox.autosize();
 
 	}
+	
+	@FXML
+	void fileTxtExport()
+	{
+		
+	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
@@ -385,5 +400,6 @@ public class GuiController implements PropertyChangeListener{
 			
 		
 	}
+	
 
 }

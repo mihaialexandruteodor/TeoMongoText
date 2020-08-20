@@ -19,7 +19,6 @@
 	</properties>
 
 	<dependencies>
-
 		<!-- https://mvnrepository.com/artifact/org.openjfx/javafx -->
 		<dependency>
 			<groupId>org.openjfx</groupId>

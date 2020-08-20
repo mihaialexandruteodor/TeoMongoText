@@ -49,9 +49,6 @@ public class MainFxClass extends Application{
 
 			DataSingleton.getInstance().getMongoDbConnector().init();
 			
-			DataSingleton.getInstance().getCrudObj().readDB();
-			
-			DataSingleton.getInstance().getGuiController().loadDataIntoLists();
 			
 		} catch (Exception e) {
 			e.printStackTrace();

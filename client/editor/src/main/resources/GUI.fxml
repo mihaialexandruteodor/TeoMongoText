@@ -3,21 +3,16 @@
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Accordion?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
 <?import javafx.scene.control.Menu?>
 <?import javafx.scene.control.MenuBar?>
 <?import javafx.scene.control.MenuItem?>
 <?import javafx.scene.control.ScrollPane?>
 <?import javafx.scene.control.SeparatorMenuItem?>
-<?import javafx.scene.control.SplitPane?>
-<?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.paint.Color?>
-<?import javafx.scene.text.Font?>
 <?import javafx.scene.web.HTMLEditor?>
 
 <VBox id="GUI" prefHeight="600.0" prefWidth="900.0" xmlns="http://javafx.com/javafx/11" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.GuiController">
@@ -64,45 +59,27 @@
         </Menu>
       </menus>
     </MenuBar>
-    <SplitPane dividerPositions="0.2505567928730512, 0.7505567928730512" focusTraversable="true" VBox.vgrow="ALWAYS">
-      <items>
-        <AnchorPane>
-          <children>
-                  <StackPane maxWidth="-Infinity" prefHeight="150.0" prefWidth="230.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <children>
-                        <ListView fx:id="file_list_id" prefHeight="200.0" prefWidth="200.0" />
-                     </children>
-                  </StackPane>
-          </children>
-        </AnchorPane>
-            <StackPane minWidth="740.0">
+      <HBox prefWidth="900.0" VBox.vgrow="ALWAYS">
+         <children>
+            <StackPane minWidth="200.0">
                <children>
-          <Label fx:id="text_label" alignment="CENTER" style="&#10;" text="Text" textAlignment="CENTER" wrapText="false">
-                     <font>
-                <Font size="18.0" fx:id="x1" />
-                     </font>
-                     <textFill>
-                <Color blue="0.624" green="0.624" red="0.624" fx:id="x2" />
-                     </textFill></Label>
-                  <HTMLEditor fx:id="textBox" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" />
+                  <ListView fx:id="file_list_id" minWidth="200.0" />
                </children>
             </StackPane>
-        <AnchorPane>
-          <children>
-                  <ScrollPane fitToWidth="true" prefWidth="230.0" AnchorPane.bottomAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                     <content>
-                        <Accordion fx:id="char_list_id" />
-                     </content>
-                  </ScrollPane>
-          </children>
-        </AnchorPane>
-      </items>
-    </SplitPane>
-    <HBox id="HBox" alignment="CENTER_LEFT" spacing="5.0" VBox.vgrow="NEVER">
+            <HTMLEditor fx:id="textBox" htmlText="&lt;html&gt;&lt;head&gt;&lt;/head&gt;&lt;body contenteditable=&quot;true&quot;&gt;&lt;/body&gt;&lt;/html&gt;" HBox.hgrow="ALWAYS" />
+            <ScrollPane fitToWidth="true" minWidth="200.0">
+               <content>
+                  <Accordion fx:id="char_list_id" />
+               </content>
+            </ScrollPane>
+         </children>
+      </HBox>
+    <HBox id="HBox" alignment="CENTER_LEFT" prefHeight="50.0" spacing="5.0" VBox.vgrow="NEVER">
       <children>
         <Pane prefHeight="-1.0" prefWidth="-1.0" HBox.hgrow="ALWAYS">
                <children>
                   <Button fx:id="deleteFileButton" layoutX="12.0" mnemonicParsing="false" onAction="#deleteFile" text="Delete File" />
+                  <Button fx:id="fileTxtButton" layoutX="101.0" mnemonicParsing="false" onAction="#fileTxtExport" text="Export file as .txt" />
                </children></Pane>
             <Button fx:id="deleteChButton" mnemonicParsing="false" onAction="#deleteCh" text="Delete Character" />
             <Button id="refreshButton" fx:id="refreshButton" mnemonicParsing="false" onAction="#performRefresh" text="Refresh" />
