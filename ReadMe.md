@@ -1,4 +1,4 @@
-❗  Currently in development ❗ 
+🆕  Current version : 1.0
 
 Getting started:
 
