@@ -16,17 +16,17 @@ import org.ini4j.Wini;
 
 import utils.DataSingleton;
 
-public class ConnectionStringInputWindow{
-	
+public class ConnectionStringInputWindow {
+
 	private final PropertyChangeSupport support = new PropertyChangeSupport(this);
 
-    public void addPropertyChangeListener(PropertyChangeListener listener) {
-        support.addPropertyChangeListener(listener);
-    }
+	public void addPropertyChangeListener(PropertyChangeListener listener) {
+		support.addPropertyChangeListener(listener);
+	}
 
-    public void removePropertyChangeListener(PropertyChangeListener listener) {
-        support.removePropertyChangeListener(listener);
-    }
+	public void removePropertyChangeListener(PropertyChangeListener listener) {
+		support.removePropertyChangeListener(listener);
+	}
 
 	public ConnectionStringInputWindow() {
 		JFrame frame = new JFrame("MongoDB connection string");
@@ -77,18 +77,16 @@ public class ConnectionStringInputWindow{
 				}
 
 				label1.setText("String has been submitted and saved inside the Settings.ini file");
-				
+
 				try {
 					DataSingleton.getInstance().getMongoDbConnector().connectToDatabase();
-					
+
 					DataSingleton.getInstance().getCrudObj().readDB();
 
-				}
-				catch( IllegalArgumentException e)
-				{
+				} catch (IllegalArgumentException e) {
 					e.printStackTrace();
 				}
-				
+
 			}
 		});
 
@@ -100,7 +98,7 @@ public class ConnectionStringInputWindow{
 				frame.dispose();
 			}
 		});
-		
+
 	}
 
 }

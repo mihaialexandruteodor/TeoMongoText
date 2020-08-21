@@ -1,7 +1,7 @@
 package model;
 
 public class TextFile {
-	
+
 	String fileName, fileContent, id;
 
 	public String getId() {

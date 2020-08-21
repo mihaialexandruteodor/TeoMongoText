@@ -22,9 +22,7 @@ import model.CharacterFile;
 import model.TextFile;
 import utils.DataSingleton;
 
-public class GuiController implements PropertyChangeListener{
-	
-
+public class GuiController implements PropertyChangeListener {
 
 	private ObservableSet<TextFile> observableSetTextFiles;
 	private ObservableSet<CharacterFile> observableSetCharFiles;
@@ -100,22 +98,22 @@ public class GuiController implements PropertyChangeListener{
 
 	@FXML
 	MenuItem menu_about;
-	
+
 	@FXML
 	MenuItem editCharacter;
 
 	@FXML
 	HTMLEditor textBox;
-	
+
 	@FXML
 	Button refreshButton;
-	
+
 	@FXML
 	Button deleteChButton;
-	
+
 	@FXML
 	Button deleteFileButton;
-	
+
 	@FXML
 	Button fileTxtButton;
 
@@ -124,7 +122,7 @@ public class GuiController implements PropertyChangeListener{
 	 */
 
 	public GuiController() {
-		
+
 	}
 
 	public void loadDataIntoLists() {
@@ -174,10 +172,6 @@ public class GuiController implements PropertyChangeListener{
 	private void quitTeoMongo() {
 		System.exit(0);
 	}
-
-	/*
-	*  
-	*/
 
 	@FXML
 	private void editUndo() {
@@ -235,114 +229,106 @@ public class GuiController implements PropertyChangeListener{
 	private void helpAbout() {
 
 	}
-	
+
 	@FXML
 	private void newCharacterWindow() {
 		NewCharacterWindow window = new NewCharacterWindow();
 		window.addPropertyChangeListener(this);
 
 	}
-	
 
 	@FXML
-	private void performRefresh()
-	{
+	private void performRefresh() {
 		loadDataIntoLists();
 	}
-	
+
 	@FXML
-	private void deleteCh()
-	{
+	private void deleteCh() {
 		DataSingleton.getInstance().getCrudObj().removeCharacter();
-		
+
 		try {
 			DataSingleton.getInstance().getMongoDbConnector().connectToDatabase();
-			
+
 			DataSingleton.getInstance().getCrudObj().readDB();
 
-		}
-		catch( IllegalArgumentException e)
-		{
+		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		}
-		
+
 		performRefresh();
 	}
-	
+
 	@FXML
-	private void  deleteFile()
-	{
+	private void deleteFile() {
 		DataSingleton.getInstance().getCrudObj().removeFile();
-		
+
 		try {
 			DataSingleton.getInstance().getMongoDbConnector().connectToDatabase();
-			
+
 			DataSingleton.getInstance().getCrudObj().readDB();
 
-		}
-		catch( IllegalArgumentException e)
-		{
+		} catch (IllegalArgumentException e) {
 			e.printStackTrace();
 		}
-		
-		performRefresh();
-	}	
 
+		performRefresh();
+	}
 
 	void populateFileList() {
-		
+
 		file_list_id.getItems().removeAll(observableSetTextFiles);
 		observableSetTextFiles.clear();
 
-		if (DataSingleton.getInstance().getTextFiles() != null && DataSingleton.getInstance().getTextFiles().isEmpty() == false) {
+		if (DataSingleton.getInstance().getTextFiles() != null
+				&& DataSingleton.getInstance().getTextFiles().isEmpty() == false) {
 			DataSingleton.getInstance().getTextFiles().forEach((c) -> observableSetTextFiles.add(c));
-			
+
 			file_list_id.getItems().addAll(FXCollections.observableArrayList(observableSetTextFiles));
 
 			DataSingleton.getInstance().setCurrentFile(DataSingleton.getInstance().getTextFiles().get(0));
 
 			String content = DataSingleton.getInstance()
 					.prepareHTMLtext(DataSingleton.getInstance().getCurrentFile().getFileContent());
-			
+
 			textBox.setHtmlText(content);
 		}
 
 	}
 
 	void populateCharactersList() {
-		
+
 		char_list_id.getPanes().removeAll(observableSetCharFiles);
 		observableSetCharFiles.clear();
-		
-		if (DataSingleton.getInstance().getCharFiles() != null && DataSingleton.getInstance().getCharFiles().isEmpty() == false) {
+
+		if (DataSingleton.getInstance().getCharFiles() != null
+				&& DataSingleton.getInstance().getCharFiles().isEmpty() == false) {
 			DataSingleton.getInstance().getCharFiles().forEach((c) -> {
 				Label l = new Label();
 				l.setMaxWidth(180);
 				l.setWrapText(true);
-				l.setText(c.getDetails().substring(1, c.getDetails().length()-1).replace("\\n", "\n"));
-				
-				
+				l.setText(c.getDetails().substring(1, c.getDetails().length() - 1).replace("\\n", "\n"));
+
 				c.expandedProperty().addListener(new ChangeListener<Boolean>() {
-				    @Override
-				    public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
-				    	DataSingleton.getInstance().setCurrentCharacter(c);
-				    }
+					@Override
+					public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
+							Boolean newValue) {
+						DataSingleton.getInstance().setCurrentCharacter(c);
+					}
 				});
 				observableSetCharFiles.add(c);
 			});
 
 			char_list_id.getPanes().addAll(FXCollections.observableArrayList(observableSetCharFiles));
-			
+
 		}
 
 	}
-
 
 	public void initialize() {
 
 		observableSetTextFiles = FXCollections.observableSet();
 		observableSetCharFiles = FXCollections.observableSet();
-		
+
 		DataSingleton.getInstance().setTextBox(textBox);
 
 		file_list_id.setCellFactory(lv -> {
@@ -365,7 +351,7 @@ public class GuiController implements PropertyChangeListener{
 					DataSingleton.getInstance().setCurrentFile(cell.getItem());
 					String content = DataSingleton.getInstance()
 							.prepareHTMLtext(DataSingleton.getInstance().getCurrentFile().getFileContent());
-					
+
 					textBox.setHtmlText(content);
 					e.consume();
 				}
@@ -377,29 +363,23 @@ public class GuiController implements PropertyChangeListener{
 		file_list_id.setOnMouseClicked(e -> {
 			System.out.println("You clicked on an empty cell");
 		});
-		
 
 		textBox.autosize();
 
 	}
-	
+
 	@FXML
-	void fileTxtExport()
-	{
-		
+	void fileTxtExport() {
+		DataSingleton.getInstance().generateRTFfile();
 	}
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		if(evt.getPropertyName().equals("refresh"))
-			Platform.runLater(
-					  () -> {
-						  loadDataIntoLists();
-					  }
-					);
-			
-		
+		if (evt.getPropertyName().equals("refresh"))
+			Platform.runLater(() -> {
+				loadDataIntoLists();
+			});
+
 	}
-	
 
 }

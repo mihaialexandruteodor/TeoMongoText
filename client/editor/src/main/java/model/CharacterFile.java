@@ -3,12 +3,11 @@ package model;
 import javafx.scene.control.Label;
 import javafx.scene.control.TitledPane;
 
-public class CharacterFile extends TitledPane{
-	
+public class CharacterFile extends TitledPane {
+
 	private String name, details;
-	
-	public CharacterFile(String title, Label label)
-	{
+
+	public CharacterFile(String title, Label label) {
 		super(title, label);
 	}
 
