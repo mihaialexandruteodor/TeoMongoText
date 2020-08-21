@@ -4,7 +4,7 @@ Getting started:
 
 ✅  Set up a MongoDB Atlas free cluster and a simple database named teomongotext, with two collections inside (files and characters). I used the AWS server closest to me to host the database. Create a user and a connection string for said database
 
-✅  Install a Java Runtime Enviorment (Don't forget to set the Java home path) and run the jar using
+✅  Install Java SE 14 or later (Don't forget to set the Java home path) and run the jar using
 
 ```
 java -jar path/to/TeoMongoText.jar
