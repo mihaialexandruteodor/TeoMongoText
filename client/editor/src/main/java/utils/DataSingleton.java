@@ -210,7 +210,7 @@ public class DataSingleton {
 		return text;
 	}
 
-	public void generateRTFfile() {
+	public void generateTXTfile() {
 		String path = null;
 
 		LocalSaveWindow window = new LocalSaveWindow();

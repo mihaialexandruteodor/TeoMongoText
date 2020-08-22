@@ -1,7 +1,11 @@
 package gui;
 
+import java.awt.Desktop;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
 
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
@@ -62,37 +66,14 @@ public class GuiController implements PropertyChangeListener {
 
 	@FXML
 	MenuItem menu_new;
-	@FXML
-	MenuItem menu_open;
-	@FXML
-	MenuItem menu_close;
+	
 	@FXML
 	MenuItem menu_save;
 	@FXML
 	MenuItem menu_save_as;
 	@FXML
-	MenuItem menu_revert;
-	@FXML
-	MenuItem menu_preferences;
-	@FXML
 	MenuItem menu_quit;
 
-	@FXML
-	MenuItem menu_undo;
-	@FXML
-	MenuItem menu_redo;
-	@FXML
-	MenuItem menu_cut;
-	@FXML
-	MenuItem menu_copy;
-	@FXML
-	MenuItem menu_paste;
-	@FXML
-	MenuItem menu_delete;
-	@FXML
-	MenuItem menu_select_all;
-	@FXML
-	MenuItem menu_unselect_all;
 	@FXML
 	MenuItem menu_mongodb;
 
@@ -139,78 +120,18 @@ public class GuiController implements PropertyChangeListener {
 	}
 
 	@FXML
-	private void fileOpen() {
-
-	}
-
-	@FXML
-	private void fileClose() {
-
-	}
-
-	@FXML
 	private void fileSave() {
 		DataSingleton.getInstance().saveOperation();
 	}
 
 	@FXML
 	private void fileSaveAs() {
-
-	}
-
-	@FXML
-	private void fileRevert() {
-
-	}
-
-	@FXML
-	private void filePreferences() {
-
+		DataSingleton.getInstance().generateTXTfile();
 	}
 
 	@FXML
 	private void quitTeoMongo() {
 		System.exit(0);
-	}
-
-	@FXML
-	private void editUndo() {
-
-	}
-
-	@FXML
-	private void editRedo() {
-
-	}
-
-	@FXML
-	private void editCut() {
-
-	}
-
-	@FXML
-	private void editCopy() {
-
-	}
-
-	@FXML
-	private void editPaste() {
-
-	}
-
-	@FXML
-	private void editDelete() {
-
-	}
-
-	@FXML
-	private void editSelectAll() {
-
-	}
-
-	@FXML
-	private void editUnselectAll() {
-
 	}
 
 	@FXML
@@ -227,7 +148,15 @@ public class GuiController implements PropertyChangeListener {
 
 	@FXML
 	private void helpAbout() {
-
+		if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
+		    try {
+				Desktop.getDesktop().browse(new URI("https://github.com/mihaialexandruteodor/TeoMongoText"));
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (URISyntaxException e) {
+				e.printStackTrace();
+			}
+		}
 	}
 
 	@FXML
@@ -370,7 +299,7 @@ public class GuiController implements PropertyChangeListener {
 
 	@FXML
 	void fileTxtExport() {
-		DataSingleton.getInstance().generateRTFfile();
+		DataSingleton.getInstance().generateTXTfile();
 	}
 
 	@Override
