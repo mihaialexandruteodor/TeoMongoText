@@ -1,4 +1,4 @@
-🆕  Current version : 1.0
+🆕  Current version : 1.1
 
 Getting started:
 
@@ -25,3 +25,7 @@ https://stackoverflow.com/a/54065502/14087775
 
 John Engelman, shadow plugin
 https://github.com/johnrengelman/shadow
+
+
+Changelog:
+1.1 [x] - Added editable characters
