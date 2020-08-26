@@ -15,7 +15,7 @@ import utils.IniLoader;
 
 public class MainFxClass extends Application {
 
-	double version = 1.0;
+	double version = 1.1;
 	static FXMLLoader fxmlLoader;
 
 	@Override

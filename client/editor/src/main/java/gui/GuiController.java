@@ -8,8 +8,6 @@ import java.net.URI;
 import java.net.URISyntaxException;
 
 import javafx.application.Platform;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
 import javafx.fxml.FXML;
@@ -88,6 +86,9 @@ public class GuiController implements PropertyChangeListener {
 
 	@FXML
 	Button refreshButton;
+	
+	@FXML
+	Button editCharacterButton;
 
 	@FXML
 	Button deleteChButton;
@@ -161,9 +162,21 @@ public class GuiController implements PropertyChangeListener {
 
 	@FXML
 	private void newCharacterWindow() {
-		NewCharacterWindow window = new NewCharacterWindow();
+		CharacterWindow window = new CharacterWindow();
 		window.addPropertyChangeListener(this);
 
+	}
+	
+	@FXML
+	private void editCharacter()
+	{
+		String name, details;
+		name = DataSingleton.getInstance().getCurrentCharacter().getName();
+		details = DataSingleton.getInstance().getCurrentCharacter().getDetails();
+		name = name.substring(1, name.length() - 1);
+		details = details.substring(1, details.length() - 1);
+		CharacterWindow window = new CharacterWindow(name, details);
+		window.addPropertyChangeListener(this);
 	}
 
 	@FXML
@@ -232,18 +245,7 @@ public class GuiController implements PropertyChangeListener {
 		if (DataSingleton.getInstance().getCharFiles() != null
 				&& DataSingleton.getInstance().getCharFiles().isEmpty() == false) {
 			DataSingleton.getInstance().getCharFiles().forEach((c) -> {
-				Label l = new Label();
-				l.setMaxWidth(180);
-				l.setWrapText(true);
-				l.setText(c.getDetails().substring(1, c.getDetails().length() - 1).replace("\\n", "\n"));
-
-				c.expandedProperty().addListener(new ChangeListener<Boolean>() {
-					@Override
-					public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue,
-							Boolean newValue) {
-						DataSingleton.getInstance().setCurrentCharacter(c);
-					}
-				});
+			
 				observableSetCharFiles.add(c);
 			});
 

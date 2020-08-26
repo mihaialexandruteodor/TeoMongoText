@@ -5,7 +5,15 @@ import javafx.scene.control.TitledPane;
 
 public class CharacterFile extends TitledPane {
 
-	private String name, details;
+	private String name, details, objId;
+
+	public String getObjId() {
+		return objId;
+	}
+
+	public void setObjId(String objId) {
+		this.objId = objId;
+	}
 
 	public CharacterFile(String title, Label label) {
 		super(title, label);

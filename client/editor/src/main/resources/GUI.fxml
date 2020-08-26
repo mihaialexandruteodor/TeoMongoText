@@ -65,10 +65,10 @@
                <children>
                   <Button fx:id="deleteFileButton" layoutX="12.0" mnemonicParsing="false" onAction="#deleteFile" text="Delete File" />
                   <Button fx:id="fileTxtButton" layoutX="101.0" mnemonicParsing="false" onAction="#fileTxtExport" text="Export file as .txt" />
-                  <Button fx:id="editCharacterButton" layoutX="657.0" mnemonicParsing="false" onAction="#editCharacter" text="Edit Character" />
                </children></Pane>
             <Button fx:id="deleteChButton" mnemonicParsing="false" onAction="#deleteCh" text="Delete Character" />
             <Button id="refreshButton" fx:id="refreshButton" mnemonicParsing="false" onAction="#performRefresh" text="Refresh" />
+            <Button fx:id="editCharacterButton" mnemonicParsing="false" onAction="#editCharacter" text="Edit Character" />
       </children>
       <padding>
         <Insets bottom="3.0" left="3.0" right="3.0" top="3.0" />
