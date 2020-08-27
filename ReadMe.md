@@ -28,4 +28,5 @@ https://github.com/johnrengelman/shadow
 
 
 Changelog:
-1.1 [x] - Added editable characters
+1.1
+- [x] - Added editable characters
