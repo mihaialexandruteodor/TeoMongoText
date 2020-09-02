@@ -79,13 +79,13 @@ public class GuiController implements PropertyChangeListener {
 	MenuItem menu_about;
 
 	@FXML
-	MenuItem editCharacter;
-
-	@FXML
 	HTMLEditor textBox;
 
 	@FXML
 	Button refreshButton;
+	
+	@FXML
+	Button characterButton;
 
 	@FXML
 	Button editCharacterButton;

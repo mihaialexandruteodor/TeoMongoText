@@ -33,8 +33,6 @@
         <Menu fx:id="menu_edit" mnemonicParsing="false" text="Edit">
           <items>
                   <MenuItem fx:id="menu_mongodb" mnemonicParsing="false" onAction="#setConnectionString" text="Set MongoDb Connection String" />
-                  <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem fx:id="editCharacter" mnemonicParsing="false" onAction="#newCharacterWindow" text="New Character" />
           </items>
         </Menu>
         <Menu fx:id="menu_help" mnemonicParsing="false" text="Help">
@@ -66,6 +64,7 @@
                   <Button fx:id="deleteFileButton" layoutX="12.0" mnemonicParsing="false" onAction="#deleteFile" text="Delete File" />
                   <Button fx:id="fileTxtButton" layoutX="101.0" mnemonicParsing="false" onAction="#fileTxtExport" text="Export file as .txt" />
                </children></Pane>
+            <Button fx:id="characterButton" mnemonicParsing="false" onAction="#newCharacterWindow" text="New Character" />
             <Button fx:id="deleteChButton" mnemonicParsing="false" onAction="#deleteCh" text="Delete Character" />
             <Button id="refreshButton" fx:id="refreshButton" mnemonicParsing="false" onAction="#performRefresh" text="Refresh" />
             <Button fx:id="editCharacterButton" mnemonicParsing="false" onAction="#editCharacter" text="Edit Character" />
