@@ -1,6 +1,6 @@
 [![trophy](https://github-profile-trophy.vercel.app/?username=mihaialexandruteodor)](https://github.com/ryo-ma/github-profile-trophy)
 
-🆕  Current version : 1.1
+🆕  Current version : 1.2
 
 Getting started:
 
@@ -32,3 +32,5 @@ https://github.com/johnrengelman/shadow
 Changelog:
 1.1
 - [x] - Added editable characters
+1.2
+- [x] - Various fixes

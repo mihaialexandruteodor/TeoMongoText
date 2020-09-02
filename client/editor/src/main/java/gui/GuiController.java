@@ -7,6 +7,10 @@ import java.io.IOException;
 import java.net.URI;
 import java.net.URISyntaxException;
 
+import org.jsoup.Jsoup;
+import org.jsoup.nodes.Document;
+import org.jsoup.parser.Parser;
+
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableSet;
@@ -278,6 +282,10 @@ public class GuiController implements PropertyChangeListener {
 
 			cell.setOnMouseClicked(e -> {
 				if (!cell.isEmpty()) {
+					Document doc = Jsoup.parse(textBox.getHtmlText());
+					DataSingleton.getInstance().getCurrentFile().setFileContent(
+							DataSingleton.getInstance()
+							.prepareHTMLtext(textBox.getHtmlText()));
 					DataSingleton.getInstance().setCurrentFile(cell.getItem());
 					String content = DataSingleton.getInstance()
 							.prepareHTMLtext(DataSingleton.getInstance().getCurrentFile().getFileContent());

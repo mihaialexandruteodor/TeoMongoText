@@ -204,9 +204,14 @@ public class DataSingleton {
 	}
 
 	public String prepareHTMLtext(String text) {
-		Parser.unescapeEntities(text, false);
-		text = text.replace("\\", "").replace("\"\"", "");
-		text = text.substring(1, text.length() - 1);
+		if (text.contains("\\")) {
+			Parser.unescapeEntities(text, false);
+			text = text.replace("\\", "").replace("\"\"", "");
+		}
+		if (text.length() > 0 && text.charAt(0) == '\"') {
+			text = text.substring(1, text.length() - 1);
+		}
+
 		return text;
 	}
 
