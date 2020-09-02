@@ -76,6 +76,64 @@ public class CRUD {
 		}
 
 	}
+	
+	public void readFiles() {
+		DataSingleton.getInstance().setTextFiles(new ArrayList<>());
+		
+		MongoCollection<Document> filesCollection = DataSingleton.getInstance().getDatabase().getCollection("files");
+
+		List<Document> docsList = filesCollection.find().into(new ArrayList<>());
+
+		for (Document doc : docsList) {
+
+			TextFile text = new TextFile();
+
+			JsonParser parser = new JsonParser();
+			JsonElement neoJsonElement = parser.parse(doc.toJson());
+
+			text.setId(neoJsonElement.getAsJsonObject().get("_id").getAsJsonObject().get("$oid").toString());
+			text.setFileName(neoJsonElement.getAsJsonObject().get("file_name").toString());
+			text.setFileContent(neoJsonElement.getAsJsonObject().get("contents").toString());
+
+			DataSingleton.getInstance().getTextFiles().add(text);
+		}
+
+	}
+	
+	public void readCharacters() {
+		DataSingleton.getInstance().setCharFiles(new ArrayList<>());
+		
+		MongoCollection<Document> charactersCollection = DataSingleton.getInstance().getDatabase()
+				.getCollection("characters");
+
+		List<Document> chrsList = charactersCollection.find().into(new ArrayList<>());
+
+		for (Document chr : chrsList) {
+			JsonParser parser = new JsonParser();
+			JsonElement neoJsonElement = parser.parse(chr.toJson());
+
+			Label l = new Label();
+			l.setMaxWidth(180);
+			String details = neoJsonElement.getAsJsonObject().get("details").toString();
+			l.setText(details.substring(1, details.length() - 1).replace("█", "\n"));
+			l.setWrapText(true);
+
+			String name = neoJsonElement.getAsJsonObject().get("character_name").toString();
+			CharacterFile charact = new CharacterFile(name.substring(1, name.length() - 1), l);
+			charact.setObjId(neoJsonElement.getAsJsonObject().get("_id").getAsJsonObject().get("$oid").toString());
+
+			charact.expandedProperty().addListener(new ChangeListener<Boolean>() {
+				@Override
+				public void changed(ObservableValue<? extends Boolean> observable, Boolean oldValue, Boolean newValue) {
+					DataSingleton.getInstance().setCurrentCharacter(charact);
+				}
+			});
+
+			charact.setName(neoJsonElement.getAsJsonObject().get("character_name").toString());
+			charact.setDetails(neoJsonElement.getAsJsonObject().get("details").toString());
+			DataSingleton.getInstance().getCharFiles().add(charact);
+		}
+	}
 
 	public void updateTextFileContents() {
 		MongoCollection<Document> collection = DataSingleton.getInstance().getDatabase().getCollection("files");

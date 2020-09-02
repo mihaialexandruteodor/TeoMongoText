@@ -136,7 +136,7 @@ public class CharacterWindow {
 
 			@Override
 			public void actionPerformed(ActionEvent arg0) {
-				support.firePropertyChange("refresh", true, false);
+				support.firePropertyChange("refreshCharacters", true, false);
 				frame.dispose();
 			}
 		});

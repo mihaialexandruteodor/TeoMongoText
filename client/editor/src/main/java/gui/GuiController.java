@@ -64,7 +64,7 @@ public class GuiController implements PropertyChangeListener {
 
 	@FXML
 	MenuItem menu_new;
-	
+
 	@FXML
 	MenuItem menu_save;
 	@FXML
@@ -86,7 +86,7 @@ public class GuiController implements PropertyChangeListener {
 
 	@FXML
 	Button refreshButton;
-	
+
 	@FXML
 	Button editCharacterButton;
 
@@ -150,7 +150,7 @@ public class GuiController implements PropertyChangeListener {
 	@FXML
 	private void helpAbout() {
 		if (Desktop.isDesktopSupported() && Desktop.getDesktop().isSupported(Desktop.Action.BROWSE)) {
-		    try {
+			try {
 				Desktop.getDesktop().browse(new URI("https://github.com/mihaialexandruteodor/TeoMongoText"));
 			} catch (IOException e) {
 				e.printStackTrace();
@@ -166,10 +166,9 @@ public class GuiController implements PropertyChangeListener {
 		window.addPropertyChangeListener(this);
 
 	}
-	
+
 	@FXML
-	private void editCharacter()
-	{
+	private void editCharacter() {
 		String name, details;
 		name = DataSingleton.getInstance().getCurrentCharacter().getName();
 		details = DataSingleton.getInstance().getCurrentCharacter().getDetails();
@@ -245,7 +244,7 @@ public class GuiController implements PropertyChangeListener {
 		if (DataSingleton.getInstance().getCharFiles() != null
 				&& DataSingleton.getInstance().getCharFiles().isEmpty() == false) {
 			DataSingleton.getInstance().getCharFiles().forEach((c) -> {
-			
+
 				observableSetCharFiles.add(c);
 			});
 
@@ -306,11 +305,16 @@ public class GuiController implements PropertyChangeListener {
 
 	@Override
 	public void propertyChange(PropertyChangeEvent evt) {
-		if (evt.getPropertyName().equals("refresh"))
+		if (evt.getPropertyName().equals("refresh")) {
 			Platform.runLater(() -> {
 				loadDataIntoLists();
 			});
-
+		} else if (evt.getPropertyName().equals("refreshCharacters")) {
+			Platform.runLater(() -> {
+				DataSingleton.getInstance().getCrudObj().readCharacters();
+				populateCharactersList();
+			});
+		}
 	}
 
 }
